@@ -67,9 +67,10 @@
           <h1><span class="fs-title-long" data-i18n-zh="童話數學谷" data-i18n-en="Fairytale Maths Valley">童話數學谷</span><span class="fs-title-short" data-i18n-zh="數學谷" data-i18n-en="Valley">數學谷</span></h1>
           <span class="fs-en" data-i18n-zh="選一條小路開始第 1 集" data-i18n-en="Pick a path to start Episode 1">選一條小路開始第 1 集</span>
         </div>
-        <div class="fs-stars" aria-label="星星 0 顆，共 36 顆"><span class="fs-stars__icon">★</span> 0 / 36</div>
+        <div class="fs-stars" aria-label="星星 0 顆，共 36 顆"><span class="fs-stars__icon">★</span> 0<span class="fs-stars__of"> / 36</span></div>
         <div class="fs-lang" role="group" aria-label="語言與語音切換">
-          <button type="button" class="fs-lang__opt is-on" data-lang="zh" aria-pressed="true">中</button>
+          <button type="button" class="fs-lang__opt is-on" data-lang="zh" aria-pressed="true" aria-label="中文（國語語音）">中</button>
+          <button type="button" class="fs-lang__opt" data-lang="yue" aria-pressed="false" aria-label="廣東話語音（香港）">粵</button>
           <button type="button" class="fs-lang__opt" data-lang="en" aria-pressed="false">EN</button>
         </div>
         <button type="button" class="fs-icon-btn fs-mute js-mute" aria-pressed="false" aria-label="語音開著，點一下靜音">
@@ -100,9 +101,10 @@
           <h1><span class="fs-title-long" data-i18n-zh="第 1 集 · 莓果小路" data-i18n-en="Ep 1 · Berry Path">第 1 集 · 莓果小路</span><span class="fs-title-short" data-i18n-zh="第 1 集" data-i18n-en="Ep 1">第 1 集</span></h1>
           <span class="fs-en">數到 99 的位值 · Place value to 99</span>
         </div>
-        <div class="fs-stars" aria-label="星星 0 顆，共 36 顆"><span class="fs-stars__icon">★</span> 0 / 36</div>
+        <div class="fs-stars" aria-label="星星 0 顆，共 36 顆"><span class="fs-stars__icon">★</span> 0<span class="fs-stars__of"> / 36</span></div>
         <div class="fs-lang" role="group" aria-label="語言與語音切換">
-          <button type="button" class="fs-lang__opt is-on" data-lang="zh" aria-pressed="true">中</button>
+          <button type="button" class="fs-lang__opt is-on" data-lang="zh" aria-pressed="true" aria-label="中文（國語語音）">中</button>
+          <button type="button" class="fs-lang__opt" data-lang="yue" aria-pressed="false" aria-label="廣東話語音（香港）">粵</button>
           <button type="button" class="fs-lang__opt" data-lang="en" aria-pressed="false">EN</button>
         </div>
         <button type="button" class="fs-icon-btn fs-mute js-mute" aria-pressed="false" aria-label="語音開著，點一下靜音">
@@ -173,7 +175,7 @@
           <span class="fs-speak__waves" aria-hidden="true"><i></i><i></i><i></i></span>
         </button>
         </div>
-        <p class="fs-voice-note">這個瀏覽器沒有可用的語音。請先讀畫面上的字，或換一個有語音的瀏覽器。<span class="fs-en">Speech isn’t available in this browser. Please read the words on the screen.</span></p>
+        <p class="fs-voice-note"><span class="fs-voice-note__msg">這個瀏覽器沒有可用的語音。請先讀畫面上的字，或換一個有語音的瀏覽器。</span><span class="fs-en">Speech isn’t available in this browser. Please read the words on the screen.</span></p>
         <div class="fs-quest__actions">
           <button type="button" class="fs-btn fs-btn--ghost" id="btn-hint" data-i18n-zh="提示 Hint" data-i18n-en="Hint">提示 Hint</button>
           <button type="button" class="fs-btn fs-btn--primary" id="btn-check" data-i18n-zh="檢查答案 Check" data-i18n-en="Check">檢查答案 Check</button>
@@ -217,9 +219,10 @@
           <h1><span class="fs-title-long" data-i18n-zh="第 1 集 · 答對了" data-i18n-en="Episode 1 · Well done">第 1 集 · 答對了</span><span class="fs-title-short" data-i18n-zh="答對了" data-i18n-en="Well done">答對了</span></h1>
           <span class="fs-en">You earned a star</span>
         </div>
-        <div class="fs-stars" aria-label="星星 1 顆，共 36 顆"><span class="fs-stars__icon">★</span> 1 / 36</div>
+        <div class="fs-stars" aria-label="星星 1 顆，共 36 顆"><span class="fs-stars__icon">★</span> 1<span class="fs-stars__of"> / 36</span></div>
         <div class="fs-lang" role="group" aria-label="語言與語音切換">
-          <button type="button" class="fs-lang__opt is-on" data-lang="zh" aria-pressed="true">中</button>
+          <button type="button" class="fs-lang__opt is-on" data-lang="zh" aria-pressed="true" aria-label="中文（國語語音）">中</button>
+          <button type="button" class="fs-lang__opt" data-lang="yue" aria-pressed="false" aria-label="廣東話語音（香港）">粵</button>
           <button type="button" class="fs-lang__opt" data-lang="en" aria-pressed="false">EN</button>
         </div>
         <button type="button" class="fs-icon-btn fs-mute js-mute" aria-pressed="false" aria-label="語音開著，點一下靜音">
@@ -297,6 +300,7 @@
   <script src="voice.js"></script>
   <script src="visuals.js"></script>
   <script src="episodes.js"></script>
+  <script src="voice-yue.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

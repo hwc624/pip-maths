@@ -1176,3 +1176,11 @@ html.is-reduce-motion .fs-speak__waves i { animation: none; }
   .fs-intro__text { font-size: 15px; }
   .fs-intro__text .fs-en { font-size: 13px; }
 }
+
+/* 窄手機：語言多了「粵」，頂列要塞得下（按鈕 44px 仍符合觸控最小尺寸） */
+@media (max-width: 420px) {
+  .fs-top .fs-icon-btn, .fs-top .fs-lang__opt { width: 44px; min-width: 44px; height: 44px; min-height: 44px; padding: 0; }
+  .fs-top .fs-lang { min-height: 44px; }
+  .fs-top .fs-stars { min-height: 44px; }
+  .fs-stars__of { display: none; }
+}

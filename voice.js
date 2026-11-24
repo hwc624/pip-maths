@@ -314,8 +314,8 @@
     }
   };
 
-  const FEMALE_RE = /female|woman|girl|samantha|karen|moira|tessa|victoria|zira|hazel|susan|linda|fiona|kate|serena|allison|ava|susan|salli|ivy|joanna|kendra|kimberly|salli|emily|lisa|ting[- ]?ting|xiao(xiao|yi|meng|han)|mei[- ]?jia|hanhan|ya?ting|hsiao|xiaoyu|google 國語|google.*mandarin|microsoft huihui|microsoft yaoyao|microsoft hanhan|microsoft xiaoxiao|meijia|女/;
-  const MALE_RE = /male|\bman\b|david|daniel|george|thomas|arthur|james|mark|ravi|lee|yunyang|yunjian|kangkang|changhua|yunxi|\bguy\b|男/;
+  const FEMALE_RE = /female|woman|girl|samantha|karen|moira|tessa|victoria|zira|hazel|susan|linda|fiona|kate|serena|allison|ava|susan|salli|ivy|joanna|kendra|kimberly|salli|emily|lisa|ting[- ]?ting|xiao(xiao|yi|meng|han)|mei[- ]?jia|hanhan|ya?ting|hsiao|xiaoyu|google 國語|google.*mandarin|microsoft huihui|microsoft yaoyao|microsoft hanhan|microsoft xiaoxiao|meijia|hiugaai|hiumaan|sin[- ]?ji|google 粵語|google.*cantonese|女/;
+  const MALE_RE = /male|\bman\b|david|daniel|george|thomas|arthur|james|mark|ravi|lee|yunyang|yunjian|kangkang|changhua|yunxi|wanlung|aasing|\bguy\b|男/;
 
   function isFemaleVoice(v) {
     const n = ((v && v.name) || "") + " " + (v.gender || "");
@@ -342,16 +342,30 @@
    * 中文優先 zh-TW，英文優先 en-ZA，再 en-GB，再其他 en。
    * 一律優先女聲；找不到女聲再退到該語言任一聲音，最後才用預設聲。
    */
+  /* 粵語聲音：語言碼 zh-HK／yue，或名稱帶粵語、Cantonese */
+  function isCantoneseVoice(v) {
+    const lang = (v.lang || "").replace("_", "-").toLowerCase();
+    const n = (v.name || "").toLowerCase();
+    return lang === "zh-hk" || lang.indexOf("yue") === 0 || lang === "zh-yue" ||
+      /粵|cantonese|hiugaai|hiumaan|wanlung|sin[- ]?ji|aasing/.test(n);
+  }
+
   function pickGirlVoice(voices, langKey) {
     const wanted = langKey === "en"
       ? ["en-ZA", "en-GB", "en-AU", "en-IE", "en-US", "en-IN", "en"]
-      : ["zh-TW", "zh-HK", "zh-CN", "cmn-Hant", "cmn", "zh"];
+      : langKey === "yue"
+        ? ["zh-HK", "yue-HK", "yue-Hant-HK", "yue", "zh-yue"]
+        : ["zh-TW", "zh-CN", "cmn-Hant", "cmn", "zh", "zh-HK"];
     const list = Array.from(voices || []);
     if (!list.length) return { voice: null, reason: "no-voices" };
 
     function score(v) {
-      const ls = langScore(v, wanted);
+      /* 粵語只用粵語聲音；國語不要挑到粵語聲音（除非只剩它） */
+      if (langKey === "yue" && !isCantoneseVoice(v)) return -1;
+      let ls = langScore(v, wanted);
+      if (langKey === "yue" && ls < 0) ls = 60; // 名稱是粵語但語言碼怪
       if (ls < 0) return -1;
+      if (langKey === "zh" && isCantoneseVoice(v)) ls -= 70;
       const sex = isFemaleVoice(v);
       const sexBonus = sex === true ? 40 : sex === false ? -30 : 0;
       return ls + sexBonus;
@@ -366,6 +380,7 @@
         score: top.s
       };
     }
+    if (langKey === "yue") return { voice: null, reason: "no-cantonese-voice" }; // 不用國語聲音唸粵語
     const anyFemale = list.find(v => isFemaleVoice(v) === true);
     if (anyFemale) return { voice: anyFemale, reason: "female-any-lang" };
     return { voice: list[0], reason: "first-available" };
@@ -384,10 +399,10 @@
     sfxOn: true,
     autoplay: true,
     rateMode: "normal", // slow | normal
-    lang: "zh", // zh | en
+    lang: "zh", // zh（國語）| yue（香港粵語）| en
     voices: [],
-    picked: { zh: null, en: null },
-    pickInfo: { zh: null, en: null },
+    picked: { zh: null, yue: null, en: null },
+    pickInfo: { zh: null, yue: null, en: null },
     queue: Promise.resolve(),
     currentUtter: null,
     cancelled: false,
@@ -403,6 +418,8 @@
     api.voices = getVoicesSafe();
     api.pickInfo.zh = pickGirlVoice(api.voices, "zh");
     api.pickInfo.en = pickGirlVoice(api.voices, "en");
+    api.pickInfo.yue = pickGirlVoice(api.voices, "yue");
+    api.picked.yue = api.pickInfo.yue.voice;
     api.picked.zh = api.pickInfo.zh.voice;
     api.picked.en = api.pickInfo.en.voice;
     return api.pickInfo;
@@ -509,6 +526,7 @@
     if (!api.hasEngine()) return Promise.resolve(false);
     if (!api.voices.length) api.refreshVoices();
     if (!api.voices.length) return Promise.resolve(false); // 沒有聲音時不唸，也不留下卡住的高亮
+    if (api.lang === "yue" && !api.picked.yue) return Promise.resolve(false); // 沒有粵語聲音：不用其他聲音代唸
 
     api.cancel();
     api.cancelled = false;
@@ -523,6 +541,7 @@
     const voice = api.picked[api.lang];
     const langCode = api.lang === "en"
       ? ((voice && voice.lang) || "en-GB")
+      : api.lang === "yue" ? ((voice && voice.lang) || "zh-HK")
       : ((voice && voice.lang) || "zh-TW");
 
     const lastQ = [...segs].reverse().findIndex(s => s.tone === "question");
@@ -554,6 +573,7 @@
 
   api.nodeLines = function (ep, zhName, enName, locked, prev) {
     prev = prev || "1";
+    if (api.lang === "yue" && global.PipYue) return global.PipYue.nodeLines(ep, zhName, locked, prev);
     if (locked === "soon") {
       if (api.lang === "en") return [
         { text: "Episode " + ep + ", " + enName + ".", tone: "calm" },
@@ -624,6 +644,7 @@
   };
 
   api.pickGirlVoice = pickGirlVoice;
+  api.isCantoneseVoice = isCantoneseVoice;
 
   if (global.speechSynthesis) {
     speechSynthesis.addEventListener("voiceschanged", () => api.refreshVoices());

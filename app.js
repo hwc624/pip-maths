@@ -90,6 +90,8 @@
          intro: { line: "e1intro", zh: EP1_STORY.intro.zh, en: EP1_STORY.intro.en } }
   }, window.PipEpisodes ? window.PipEpisodes.build(V) : {});
   const LAST_EP = Math.max.apply(null, Object.keys(EPS).map(Number));
+  /* 香港粵語語音：每句台詞掛上粵語版（voice-yue.js） */
+  if (window.PipYue) window.PipYue.apply(V);
 
   /* 進度（存在這台裝置的瀏覽器裡）。截圖模式不讀不寫。 */
   const STORE_KEY = "pipMath.progress.v2";
@@ -312,7 +314,19 @@
     const st = $("#voice-status");
     if (!st) return;
     const zhInfo = V.pickInfo.zh;
+    const yueInfo = V.pickInfo.yue;
     const enInfo = V.pickInfo.en;
+    /* 粵語模式但這部裝置沒有粵語聲音：明確說明，不用國語聲音代唸 */
+    const msg = $(".fs-voice-note__msg"), msgEn = $(".fs-voice-note .fs-en");
+    if (msg) {
+      const noYue = V.lang === "yue" && V.hasEngine() && V.voices.length && !V.picked.yue;
+      msg.textContent = noYue
+        ? "這部裝置沒有廣東話（香港）語音。可以在系統設定加入粵語語音，或先切回「中」聽國語。"
+        : "這個瀏覽器沒有可用的語音。請先讀畫面上的字，或換一個有語音的瀏覽器。";
+      msgEn.textContent = noYue
+        ? "This device has no Cantonese (Hong Kong) voice. Add one in system settings, or switch to 中 for Mandarin."
+        : "Speech isn’t available in this browser. Please read the words on the screen.";
+    }
     const nameOf = (info) => info && info.voice ? (info.voice.name + " (" + (info.voice.lang || "") + ")") : "無";
     if (forceNoSpeech || !V.hasEngine()) {
       st.textContent = document.documentElement.lang === "en"
@@ -324,7 +338,7 @@
         : "語音：有語音引擎，但尚未列出聲音。";
     } else {
       const prefix = document.documentElement.lang === "en" ? "Voices: " : "已選聲音：";
-      st.textContent = prefix + "中 " + nameOf(zhInfo) + " / EN " + nameOf(enInfo);
+      st.textContent = prefix + "中 " + nameOf(zhInfo) + " / 粵 " + nameOf(yueInfo) + " / EN " + nameOf(enInfo);
     }
     $$(".fs-speak").forEach(b => {
       const off = V.muted || (!ok && !isShot) || forceNoSpeech;
@@ -411,7 +425,7 @@
     ["#screen-map", "#screen-story", "#screen-win"].forEach(id => {
       const el = $(id + " .fs-stars");
       if (!el) return;
-      el.innerHTML = '<span class="fs-stars__icon">★</span> ' + stars + " / 36";
+      el.innerHTML = '<span class="fs-stars__icon">★</span> ' + stars + '<span class="fs-stars__of"> / 36</span>';
       el.setAttribute("aria-label", isEnLang() ? ("Stars: " + stars + " of 36") : ("星星 " + stars + " 顆，共 36 顆"));
     });
   }
@@ -625,11 +639,13 @@
     });
   });
 
+  /* zh＝中文畫面＋國語語音；yue＝中文畫面＋香港粵語語音；en＝英文畫面與語音 */
   function setLang(lang) {
-    V.lang = lang === "en" ? "en" : "zh";
-    document.documentElement.lang = lang === "en" ? "en" : "zh-Hant";
+    lang = lang === "en" || lang === "yue" ? lang : "zh";
+    V.lang = lang;
+    document.documentElement.lang = lang === "en" ? "en" : lang === "yue" ? "zh-HK" : "zh-Hant";
     $$("[data-lang]").forEach(b => {
-      const on = b.dataset.lang === (lang === "en" ? "en" : "zh");
+      const on = b.dataset.lang === lang;
       b.classList.toggle("is-on", on);
       b.setAttribute("aria-pressed", on ? "true" : "false");
     });
