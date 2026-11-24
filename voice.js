@@ -103,6 +103,203 @@
         { text: "Four full ten-frames are four tens, not four ones.", tone: "hint" }
       ]
     },
+    /* ——— 第 1 集 第 2–4 題（舉一反三：換情境、換表示法、反過來問） ——— */
+    quest2: {
+      zh: [
+        { text: "三盤十格再加六顆蛋，", tone: "calm" },
+        { text: "一共幾顆？", tone: "question" }
+      ],
+      en: [
+        { text: "Three full ten-frames plus six eggs.", tone: "calm" },
+        { text: "How many in all?", tone: "question" }
+      ]
+    },
+    hint2: {
+      zh: [
+        { text: "想一想：", tone: "hint" },
+        { text: "三個十是三十，", tone: "hint" },
+        { text: "再加六個一，就是三十六。", tone: "hint" }
+      ],
+      en: [
+        { text: "Think about it.", tone: "hint" },
+        { text: "Three tens are thirty,", tone: "hint" },
+        { text: "plus six ones is thirty-six.", tone: "hint" }
+      ]
+    },
+    err2swap: {
+      zh: [
+        { text: "再試一次。", tone: "calm" },
+        { text: "三和六對調，就變成六十三了。", tone: "hint" }
+      ],
+      en: [
+        { text: "Try again.", tone: "calm" },
+        { text: "If you swap three and six, it becomes sixty-three.", tone: "hint" }
+      ]
+    },
+    err2hund: {
+      zh: [
+        { text: "再試一次。", tone: "calm" },
+        { text: "三個十是三十，不是三百。", tone: "hint" }
+      ],
+      en: [
+        { text: "Try again.", tone: "calm" },
+        { text: "Three tens are thirty, not three hundred.", tone: "hint" }
+      ]
+    },
+    err2ones: {
+      zh: [
+        { text: "再試一次。", tone: "calm" },
+        { text: "三盤十格是三個十，不是三個一。", tone: "hint" }
+      ],
+      en: [
+        { text: "Try again.", tone: "calm" },
+        { text: "Three full ten-frames are three tens, not three ones.", tone: "hint" }
+      ]
+    },
+    win2: {
+      zh: [
+        { text: "答對了！", tone: "excited" },
+        { text: "三個十加六個一，一共是三十六。", tone: "calm" },
+        { text: "得到第二顆星星！", tone: "excited" }
+      ],
+      en: [
+        { text: "You did it!", tone: "excited" },
+        { text: "Three tens and six ones make thirty-six.", tone: "calm" },
+        { text: "You earned your second star!", tone: "excited" }
+      ]
+    },
+    quest3: {
+      zh: [
+        { text: "四十加七，", tone: "calm" },
+        { text: "等於多少？", tone: "question" }
+      ],
+      en: [
+        { text: "Forty plus seven.", tone: "calm" },
+        { text: "What does it make?", tone: "question" }
+      ]
+    },
+    hint3: {
+      zh: [
+        { text: "想一想：", tone: "hint" },
+        { text: "四十是四個十，", tone: "hint" },
+        { text: "七是七個一，", tone: "hint" },
+        { text: "十位寫四，個位寫七。", tone: "hint" }
+      ],
+      en: [
+        { text: "Think about it.", tone: "hint" },
+        { text: "Forty is four tens,", tone: "hint" },
+        { text: "seven is seven ones,", tone: "hint" },
+        { text: "so four goes in the tens place and seven in the ones place.", tone: "hint" }
+      ]
+    },
+    err3join: {
+      zh: [
+        { text: "再試一次。", tone: "calm" },
+        { text: "四十加七，不是把四十和七接在一起寫。", tone: "hint" }
+      ],
+      en: [
+        { text: "Try again.", tone: "calm" },
+        { text: "Don't just write forty and seven side by side.", tone: "hint" }
+      ]
+    },
+    err3swap: {
+      zh: [
+        { text: "再試一次。", tone: "calm" },
+        { text: "十位是四，不是七。", tone: "hint" }
+      ],
+      en: [
+        { text: "Try again.", tone: "calm" },
+        { text: "The tens digit is four, not seven.", tone: "hint" }
+      ]
+    },
+    err3ones: {
+      zh: [
+        { text: "再試一次。", tone: "calm" },
+        { text: "四十是四個十，不是四。", tone: "hint" }
+      ],
+      en: [
+        { text: "Try again.", tone: "calm" },
+        { text: "Forty is four tens, not four.", tone: "hint" }
+      ]
+    },
+    win3: {
+      zh: [
+        { text: "答對了！", tone: "excited" },
+        { text: "四十加七等於四十七，就是四個十和七個一。", tone: "calm" },
+        { text: "得到第三顆星星！", tone: "excited" }
+      ],
+      en: [
+        { text: "You did it!", tone: "excited" },
+        { text: "Forty plus seven makes forty-seven: four tens and seven ones.", tone: "calm" },
+        { text: "You earned your third star!", tone: "excited" }
+      ]
+    },
+    quest4: {
+      zh: [
+        { text: "五捆木頭，每捆十根，", tone: "calm" },
+        { text: "再加三根，", tone: "calm" },
+        { text: "一共幾根？", tone: "question" }
+      ],
+      en: [
+        { text: "Five bundles of ten logs,", tone: "calm" },
+        { text: "plus three more.", tone: "calm" },
+        { text: "How many in all?", tone: "question" }
+      ]
+    },
+    hint4: {
+      zh: [
+        { text: "想一想：", tone: "hint" },
+        { text: "五捆是五個十，就是五十，", tone: "hint" },
+        { text: "再加三根，就是五十三。", tone: "hint" }
+      ],
+      en: [
+        { text: "Think about it.", tone: "hint" },
+        { text: "Five bundles are five tens. That's fifty,", tone: "hint" },
+        { text: "plus three more is fifty-three.", tone: "hint" }
+      ]
+    },
+    err4swap: {
+      zh: [
+        { text: "再試一次。", tone: "calm" },
+        { text: "五和三對調，就變成三十五了。", tone: "hint" }
+      ],
+      en: [
+        { text: "Try again.", tone: "calm" },
+        { text: "If you swap five and three, it becomes thirty-five.", tone: "hint" }
+      ]
+    },
+    err4hund: {
+      zh: [
+        { text: "再試一次。", tone: "calm" },
+        { text: "五捆是五個十，是五十，不是五百。", tone: "hint" }
+      ],
+      en: [
+        { text: "Try again.", tone: "calm" },
+        { text: "Five bundles are five tens. That's fifty, not five hundred.", tone: "hint" }
+      ]
+    },
+    err4ones: {
+      zh: [
+        { text: "再試一次。", tone: "calm" },
+        { text: "每捆有十根，五捆是五個十，不是五個一。", tone: "hint" }
+      ],
+      en: [
+        { text: "Try again.", tone: "calm" },
+        { text: "Each bundle has ten logs, so five bundles are five tens, not five ones.", tone: "hint" }
+      ]
+    },
+    win4: {
+      zh: [
+        { text: "答對了！", tone: "excited" },
+        { text: "五個十加三個一，一共是五十三。", tone: "calm" },
+        { text: "第一集完成，三顆星都拿到了！", tone: "excited" }
+      ],
+      en: [
+        { text: "You did it!", tone: "excited" },
+        { text: "Five tens and three ones make fifty-three.", tone: "calm" },
+        { text: "Episode one complete. You have all three stars!", tone: "excited" }
+      ]
+    },
     win: {
       zh: [
         { text: "答對了！", tone: "excited" },
@@ -309,6 +506,9 @@
     if (!segs || !segs.length) return Promise.resolve(false);
     if (api.muted) return Promise.resolve(false);
     if (!api.unlocked && !opts.force) return Promise.resolve(false);
+    if (!api.hasEngine()) return Promise.resolve(false);
+    if (!api.voices.length) api.refreshVoices();
+    if (!api.voices.length) return Promise.resolve(false); // 沒有聲音時不唸，也不留下卡住的高亮
 
     api.cancel();
     api.cancelled = false;
@@ -353,6 +553,18 @@
   };
 
   api.nodeLines = function (ep, zhName, enName, locked) {
+    if (locked === "soon") {
+      if (api.lang === "en") return [
+        { text: "Episode " + ep + ", " + enName + ".", tone: "calm" },
+        { text: "This episode is still being made.", tone: "hint" },
+        { text: "Coming soon!", tone: "excited" }
+      ];
+      return [
+        { text: "第 " + ep + " 集，" + zhName + "。", tone: "calm" },
+        { text: "這一集還在準備中，", tone: "hint" },
+        { text: "很快就能玩了！", tone: "excited" }
+      ];
+    }
     if (api.lang === "en") {
       if (locked) return [
         { text: "Episode " + ep + ", " + enName + ".", tone: "calm" },
