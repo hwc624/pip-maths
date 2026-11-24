@@ -60,17 +60,41 @@
       win: { line: "win4", zh: ["答對了！", "5 個十加 3 個一，一共是 53。", "第 1 集完成，3 顆星都拿到了！"], en: ["You did it! ", "5 tens and 3 ones make 53. ", "Episode 1 complete. You have all 3 stars!"], star: false } }
   ];
 
+  /* ——— 12 集資料：第 1 集在上面（沿用原本台詞），第 2–12 集在 episodes.js ——— */
+  const EPS = Object.assign({
+    1: { ep: 1, zh: "莓果小路", en: "Berry Path", sub: "數到 99 的位值 · Place value to 99",
+         pip: { line: "pipHint" }, qs: Q, original: true }
+  }, window.PipEpisodes ? window.PipEpisodes.build(V) : {});
+  const LAST_EP = Math.max.apply(null, Object.keys(EPS).map(Number));
+
   /* 進度（存在這台裝置的瀏覽器裡）。截圖模式不讀不寫。 */
-  const STORE_KEY = "pipMath.progress.v1";
-  const prog = { q: 0, stars: 0, done: false };
+  const STORE_KEY = "pipMath.progress.v2";
+  const OLD_KEY = "pipMath.progress.v1";
+  const prog = { cur: 1, eps: {} };
+  function rec(ep) {
+    const k = String(ep);
+    if (!prog.eps[k]) prog.eps[k] = { q: 0, stars: 0, done: false };
+    return prog.eps[k];
+  }
+  const unlocked = ep => ep === 1 || (EPS[ep - 1] && rec(ep - 1).done);
+  const totalStars = () => Object.keys(EPS).reduce((a, k) => a + rec(k).stars, 0);
   function loadProg() {
     if (isShot) return;
     try {
-      const d = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
-      if (d && typeof d === "object") {
-        prog.q = Math.max(0, Math.min(Q.length - 1, d.q | 0));
-        prog.stars = Math.max(0, Math.min(3, d.stars | 0));
-        prog.done = !!d.done;
+      let d = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
+      if (!d) { // 舊版只有第 1 集
+        const o = JSON.parse(localStorage.getItem(OLD_KEY) || "null");
+        if (o) d = { cur: 1, eps: { "1": o } };
+      }
+      if (d && typeof d === "object" && d.eps) {
+        Object.keys(EPS).forEach(k => {
+          const r = d.eps[k];
+          if (!r) return;
+          const n = EPS[k].qs.length;
+          prog.eps[k] = { q: Math.max(0, Math.min(n - 1, r.q | 0)), stars: Math.max(0, Math.min(3, r.stars | 0)), done: !!r.done };
+        });
+        const c = d.cur | 0;
+        prog.cur = EPS[c] && unlocked(c) ? c : 1;
       }
     } catch (e) {}
   }
@@ -80,7 +104,10 @@
   }
   loadProg();
   let lastWinNewStar = true;
-  let winQ = 0; // 慶祝畫面正在顯示哪一題的祝賀
+  let winEp = 1, winQ = 0; // 慶祝畫面正在顯示哪一集哪一題的祝賀
+  const curE = () => EPS[prog.cur];
+  const curQ = () => curE().qs[rec(prog.cur).q];
+  const winQo = () => EPS[winEp].qs[winQ];
 
   const say = (lang, arr) => arr.map((t, i) => '<span class="fs-say fs-say--' + lang + '" data-i="' + i + '">' + t + "</span>").join("");
   const BERRY = ["p", "r", "r", "p", "r", "r", "p", "r", "r", "p"];
@@ -93,11 +120,77 @@
     return h;
   }
 
+  /* 第 1 集原本的故事頁內容（換回第 1 集時還原，畫面維持原樣） */
+  const ORIG = {
+    pip: $(".fs-pip__bubble").innerHTML,
+    imgs: $$("#screen-story .fs-cover img").map(im => [im.getAttribute("src"), im.getAttribute("alt")]),
+    title: [...$$("#screen-story .fs-top__title h1 > span")].map(sp => [sp.getAttribute("data-i18n-zh"), sp.getAttribute("data-i18n-en")]),
+    sub: $("#screen-story .fs-top__title > .fs-en").textContent,
+    winTitle: [...$$("#screen-win .fs-top__title h1 > span")].map(sp => [sp.getAttribute("data-i18n-zh"), sp.getAttribute("data-i18n-en")])
+  };
+  const SCENE = { wide: ["assets/celebrate-wide.jpg", "黃昏森林空地，陽光從樹間灑下。AI 示意"], portrait: ["assets/celebrate-portrait.jpg", "直式森林空地，陽光由上灑下。AI 示意"] };
+
+  function setI18n(el, zh, en) {
+    el.setAttribute("data-i18n-zh", zh);
+    el.setAttribute("data-i18n-en", en);
+    el.textContent = isEnLang() ? en : zh;
+  }
+
+  function renderStoryChrome() {
+    const E = curE();
+    const spans = $$("#screen-story .fs-top__title h1 > span");
+    if (E.original) {
+      spans.forEach((sp, i) => setI18n(sp, ORIG.title[i][0], ORIG.title[i][1]));
+      $("#screen-story .fs-top__title > .fs-en").textContent = ORIG.sub;
+      $$("#screen-story .fs-cover img").forEach((im, i) => { im.setAttribute("src", ORIG.imgs[i][0]); im.setAttribute("alt", ORIG.imgs[i][1]); });
+      const b = $(".fs-pip__bubble");
+      if (b.getAttribute("data-line") !== "pipHint") { b.innerHTML = ORIG.pip; b.setAttribute("data-line", "pipHint"); }
+      $(".fs-pip .fs-speak").setAttribute("data-line", "pipHint");
+    } else {
+      setI18n(spans[0], "第 " + E.ep + " 集 · " + E.zh, "Ep " + E.ep + " · " + E.en);
+      setI18n(spans[1], "第 " + E.ep + " 集", "Ep " + E.ep);
+      $("#screen-story .fs-top__title > .fs-en").textContent = E.sub;
+      const imgs = $$("#screen-story .fs-cover img");
+      imgs[0].setAttribute("src", SCENE.wide[0]); imgs[0].setAttribute("alt", SCENE.wide[1]);
+      imgs[1].setAttribute("src", SCENE.portrait[0]); imgs[1].setAttribute("alt", SCENE.portrait[1]);
+      const b = $(".fs-pip__bubble");
+      b.setAttribute("data-line", E.pip.line);
+      b.innerHTML = "\n            " + say("zh", E.pip.zh) + '\n            <span class="fs-en">' + say("en", E.pip.en) + "</span>\n          ";
+      $(".fs-pip .fs-speak").setAttribute("data-line", E.pip.line);
+    }
+    $("#screen-story").setAttribute("aria-label", "第 " + E.ep + " 集 故事與題目");
+    const demo = $('.fs-demo [data-screen="story"]');
+    if (demo) demo.textContent = "第 " + E.ep + " 集";
+  }
+
+  function renderChoices(q) {
+    $$(".fs-choice").forEach((b, i) => {
+      const c = q.choices[i];
+      b.classList.remove("fs-choice--text", "fs-choice--icon", "fs-choice--only");
+      b.removeAttribute("aria-label");
+      if (typeof c === "string") { b.dataset.val = c; b.textContent = c; return; }
+      b.dataset.val = c.v;
+      b.classList.add("fs-choice--text");
+      const ic = c.icon ? window.PipVisuals.icon(c.icon, c.zh ? 30 : 34) : "";
+      if (c.icon) b.classList.add("fs-choice--icon");
+      if (!c.zh) {
+        b.classList.add("fs-choice--only");
+        const l = q.labels && q.labels[c.v];
+        if (l) b.setAttribute("aria-label", l[0] + " " + l[1]);
+        b.innerHTML = ic;
+        return;
+      }
+      const txt = '<span class="fs-choice__zh">' + c.zh + '</span><span class="fs-en">' + c.en + "</span>";
+      b.innerHTML = c.icon ? ic + '<span class="fs-choice__txt">' + txt + "</span>" : txt;
+    });
+  }
+
   function renderQuestion() {
-    const q = Q[prog.q];
+    const E = curE(), r = rec(prog.cur), q = curQ();
+    renderStoryChrome();
     const quest = $("#quest");
     const kick = quest.querySelector(".fs-quest__kicker");
-    kick.textContent = q.kicker + " · " + (prog.q + 1) + " / " + Q.length;
+    kick.textContent = q.kicker + " · " + (r.q + 1) + " / " + E.qs.length;
     const head = quest.querySelector(".fs-quest__head-body");
     head.setAttribute("data-line", q.line); // 中英兩段都在這裡面，英文模式才能對字高亮
     const h2 = quest.querySelector(".fs-quest__title");
@@ -107,15 +200,18 @@
     quest.querySelector(".fs-quest__head .fs-speak").setAttribute("data-line", q.line);
 
     const fr = quest.querySelector(".fs-frames");
-    if (q.equation) {
-      fr.innerHTML = '<div class="fs-equation">' + q.equation + "</div>";
-    } else {
+    if (q.frames) {
       let h = "";
       for (let i = 0; i < q.frames.full; i++) h += '<div class="fs-tf"><div class="fs-tf__lab">10</div><div class="fs-tf__grid">' + cellsHtml(10, q.frames.kind) + "</div></div>";
       if (q.frames.part) h += '<div class="fs-tf fs-tf--part"><div class="fs-tf__lab">' + q.frames.part + '</div><div class="fs-tf__grid">' + cellsHtml(q.frames.part, q.frames.kind) + "</div></div>";
       fr.innerHTML = h;
+    } else if (q.equation) {
+      fr.innerHTML = '<div class="fs-equation">' + q.equation + "</div>";
+    } else {
+      fr.innerHTML = window.PipVisuals.render(q.vis);
     }
-    $$(".fs-choice").forEach((b, i) => { b.dataset.val = q.choices[i]; b.textContent = q.choices[i]; });
+    fr.hidden = !fr.innerHTML;
+    renderChoices(q);
 
     const hb = $("#fb-hint");
     hb.setAttribute("data-line", q.hint.line);
@@ -126,7 +222,7 @@
   }
 
   function renderWin(newStar) {
-    const q = Q[winQ];
+    const E = EPS[winEp], q = winQo();
     const copy = $("#screen-win .fs-win__copy");
     copy.setAttribute("data-line", q.win.line);
     copy.querySelector(".fs-speak").setAttribute("data-line", q.win.line);
@@ -137,18 +233,22 @@
     copy.querySelector(".fs-win__copy-body > .fs-en").innerHTML =
       '<span class="fs-say fs-say--en" data-i="0">' + q.win.en[0] + '</span><span class="fs-say fs-say--en" data-i="1">' + q.win.en[1] + "</span>" +
       (showStar ? '<span class="fs-say fs-say--en" data-i="2">' + q.win.en[2] + "</span>" : "");
-    const last = winQ === Q.length - 1;
+    const last = winQ === E.qs.length - 1;
+    const tspans = $$("#screen-win .fs-top__title h1 > span");
+    if (E.original) tspans.forEach((sp, i) => setI18n(sp, ORIG.winTitle[i][0], ORIG.winTitle[i][1]));
+    else setI18n(tspans[0], "第 " + E.ep + " 集 · 答對了", "Episode " + E.ep + " · Well done");
     const sub = $("#screen-win .fs-top__title > .fs-en");
-    sub.textContent = last ? "Episode 1 complete" : (showStar ? "You earned a star" : "Well done");
+    sub.textContent = last ? "Episode " + E.ep + " complete" : (showStar ? "You earned a star" : "Well done");
     const next = $("#btn-next");
-    next.setAttribute("data-i18n-zh", last ? "看看第 2 集" : "下一題");
-    next.setAttribute("data-i18n-en", last ? "See Episode 2" : "Next question");
+    if (!last) { next.setAttribute("data-i18n-zh", "下一題"); next.setAttribute("data-i18n-en", "Next question"); }
+    else if (EPS[E.ep + 1]) { next.setAttribute("data-i18n-zh", "看看第 " + (E.ep + 1) + " 集"); next.setAttribute("data-i18n-en", "See Episode " + (E.ep + 1)); }
+    else { next.setAttribute("data-i18n-zh", "回到地圖"); next.setAttribute("data-i18n-en", "Back to map"); }
     next.textContent = isEnLang() ? next.getAttribute("data-i18n-en") : next.getAttribute("data-i18n-zh");
   }
 
   /* 祝賀語音：重玩時沒有新星星，就不唸「得到…星星」那句 */
   function winSegments() {
-    const q = Q[winQ];
+    const q = winQo();
     const segs = V.LINES[q.win.line] && V.LINES[q.win.line][V.lang];
     if (!segs) return null;
     return (q.win.star && !lastWinNewStar) ? segs.slice(0, 2) : segs;
@@ -156,19 +256,18 @@
 
   function renderMap() {
     $$(".fs-node").forEach(n => {
-      const ep = n.dataset.ep;
+      const ep = +n.dataset.ep;
+      if (!EPS[ep]) return;
       const pin = n.querySelector(".fs-node__pin");
-      if (ep === "1") {
-        n.classList.toggle("is-current", !prog.done);
-        n.classList.toggle("is-done", prog.done);
-        pin.innerHTML = prog.done
-          ? '<span aria-hidden="true">✓</span><span class="visually-hidden">第1集完成</span>'
-          : '1<span class="visually-hidden">第1集進行中</span>';
-      } else if (ep === "2" && prog.done) {
-        n.classList.remove("is-locked");
-        n.classList.add("is-current");
-        pin.innerHTML = '2<span class="visually-hidden">第2集即將推出</span>';
-      }
+      const r = rec(ep), open = unlocked(ep);
+      n.classList.toggle("is-done", r.done);
+      n.classList.toggle("is-current", !r.done && open);
+      n.classList.toggle("is-locked", !open);
+      const html = r.done
+        ? '<span aria-hidden="true">✓</span><span class="visually-hidden">第' + ep + '集完成</span>'
+        : open ? ep + '<span class="visually-hidden">第' + ep + '集進行中</span>'
+               : '<span aria-hidden="true">🔒</span><span class="visually-hidden">第' + ep + '集未解鎖</span>';
+      if (pin.innerHTML !== html) pin.innerHTML = html;
     });
   }
 
@@ -245,12 +344,12 @@
   function autoSpeak(name, opts) {
     opts = opts || {};
     if (name === "story") {
-      const qLine = Q[prog.q].line;
+      const qLine = curQ().line;
       if (opts.questOnly) return V.speakLine(qLine);
-      return V.speakLine("pipHint").then(ok => { if (ok && V.autoplay && !V.muted) return V.speakLine(qLine); });
+      return V.speakLine(curE().pip.line).then(ok => { if (ok && V.autoplay && !V.muted) return V.speakLine(qLine); });
     }
     if (name === "win") {
-      const go = () => V.speakLine(Q[winQ].win.line, { segments: winSegments() });
+      const go = () => V.speakLine(winQo().win.line, { segments: winSegments() });
       if (opts.delay) {
         const my = V.seq;
         return new Promise(r => setTimeout(r, opts.delay)).then(() => { if (my === V.seq) return go(); });
@@ -269,9 +368,9 @@
     $("#fb-hint").classList.remove("is-show");
   }
 
-  /* 星星：答對第 1 集後地圖／故事頁也顯示 1 / 36（示範，不存檔） */
+  /* 星星：12 集合計，每集最多 3 顆 */
   function renderStars() {
-    const stars = prog.stars;
+    const stars = totalStars();
     ["#screen-map", "#screen-story", "#screen-win"].forEach(id => {
       const el = $(id + " .fs-stars");
       if (!el) return;
@@ -337,38 +436,46 @@
   $$(".js-to-map").forEach(b => b.addEventListener("click", () => show("map")));
   $("#btn-home").addEventListener("click", () => show("map"));
   $("#btn-next").addEventListener("click", () => {
-    if (winQ < Q.length - 1) {
+    const E = EPS[winEp];
+    if (winQ < E.qs.length - 1) {
+      prog.cur = winEp;
+      renderQuestion();
       show("story", { auto: false, fresh: true });
       if (V.unlocked && V.autoplay && !V.muted && !isShot) autoSpeak("story", { questOnly: true });
       return;
     }
-    /* 第 1 集完成：回地圖看第 2 集 */
+    /* 這一集完成：回地圖，下一集已解鎖 */
     show("map", { auto: false });
-    const n = $('.fs-node[data-ep="2"]');
-    showToast(isEnLang() ? "Episode 2 “Three Houses” is coming soon!"
-      : "第 2 集「三間小房子」正在準備中，很快就能玩了！" + '<span class="fs-en">Episode 2 “Three Houses” is coming soon!</span>');
-    if (V.unlocked && !V.muted) V.speakSegments("node", V.nodeLines("2", n.dataset.zh, n.dataset.en, "soon"));
+    const nx = EPS[E.ep + 1];
+    if (nx) {
+      showToast(isEnLang() ? "Episode " + nx.ep + " “" + nx.en + "” is open!"
+        : "第 " + nx.ep + " 集「" + nx.zh + "」解鎖了！" + '<span class="fs-en">Episode ' + nx.ep + " “" + nx.en + "” is open!</span>");
+      if (V.unlocked && !V.muted) V.speakSegments("node", V.nodeLines(String(nx.ep), nx.zh, nx.en, false));
+    } else {
+      const st = totalStars();
+      showToast(isEnLang() ? "All " + LAST_EP + " episodes done! " + st + " / 36 stars."
+        : LAST_EP + " 集全部完成！一共 " + st + " / 36 顆星星。" + '<span class="fs-en">All ' + LAST_EP + " episodes done! " + st + " / 36 stars.</span>");
+    }
   });
   $$(".fs-demo [data-screen=story]").forEach(b => b.addEventListener("click", () => resetQuest(), true));
 
   $$(".fs-node").forEach(n => n.addEventListener("click", () => {
     if (!V.unlocked) { document.documentElement.classList.add("is-gated"); return; }
-    const ep = n.dataset.ep;
-    const locked = ep !== "1";
-    const mode = locked && prog.done ? "soon" : locked;
-    const segs = V.nodeLines(ep, n.dataset.zh, n.dataset.en, mode);
+    const ep = n.dataset.ep, epN = +ep;
+    const locked = !EPS[epN] || !unlocked(epN);
+    const prev = String(Math.max(1, epN - 1));
+    const segs = V.nodeLines(ep, n.dataset.zh, n.dataset.en, locked, prev);
     if (locked) {
-      const zh = mode === "soon"
-        ? "第 " + ep + " 集「" + n.dataset.zh + "」正在準備中，很快就能玩了！"
-        : "先走完第 1 集。「" + n.dataset.zh + "」就在前面等你。";
-      const en = mode === "soon"
-        ? "Episode " + ep + " “" + n.dataset.en + "” is coming soon!"
-        : "Finish Episode 1 first. “" + n.dataset.en + "” is waiting further on.";
+      const zh = "先走完第 " + prev + " 集。「" + n.dataset.zh + "」就在前面等你。";
+      const en = "Finish Episode " + prev + " first. “" + n.dataset.en + "” is waiting further on.";
       showToast(isEnLang() ? en : zh + '<span class="fs-en">' + en + "</span>");
       V.speakSegments("node", segs);
       return;
     }
     /* 先換畫面（不自動唸），再唸集名；集名唸完才接小豆與題目，避免互相打斷或交錯 */
+    prog.cur = epN;
+    saveProg();
+    renderQuestion();
     show("story", { auto: false, fresh: true });
     V.speakSegments("node", segs).then(ok => {
       if (ok && V.autoplay && !V.muted && !isShot) autoSpeak("story");
@@ -387,11 +494,11 @@
     const box = $("#fb-hint");
     box.classList.add("is-show");
     try { box.scrollIntoView({ block: "nearest" }); } catch (e) {}
-    if (V.unlocked && !V.muted) V.speakLine(Q[prog.q].hint.line);
+    if (V.unlocked && !V.muted) V.speakLine(curQ().hint.line);
   });
   /* 每個錯誤答案各自的回饋：74＝十位個位對調、407＝把 4 個十寫成 400、11＝把十格盤當成一 */
   function setErr(val) {
-    const e = Q[prog.q].errs[val];
+    const e = curQ().errs[val];
     const box = $("#fb-err");
     const body = box.querySelector(":scope > div");
     const zh = e.zh.map((t, i) => '<span class="fs-say fs-say--zh" data-i="' + i + '">' + t + "</span>").join("");
@@ -408,17 +515,19 @@
         : '先選一個答案。<span class="fs-en">Pick an answer first.</span>');
       return;
     }
-    if (picked === Q[prog.q].answer) {
+    if (picked === curQ().answer) {
       V.sfx("success");
-      winQ = prog.q;
-      const q = Q[winQ];
+      const r = rec(prog.cur);
+      winEp = prog.cur;
+      winQ = r.q;
+      const q = winQo();
       /* 第 1–3 題各一顆星（每集最多 3 顆）；重玩不重複加 */
-      lastWinNewStar = q.win.star && prog.stars < winQ + 1;
-      if (lastWinNewStar) prog.stars = winQ + 1;
-      const last = winQ === Q.length - 1;
-      if (last) prog.done = true;
+      lastWinNewStar = q.win.star && r.stars < winQ + 1;
+      if (lastWinNewStar) r.stars = winQ + 1;
+      const last = winQ === EPS[winEp].qs.length - 1;
+      if (last) r.done = true;
       /* 立刻存好下一題；最後一題答完，下次從第 1 題重玩 */
-      prog.q = last ? 0 : winQ + 1;
+      r.q = last ? 0 : winQ + 1;
       saveProg();
       renderStars();
       renderWin(lastWinNewStar);
@@ -434,7 +543,7 @@
     $("#fb-hint").classList.add("is-show");
     /* 手機題目艙會內捲，回饋可能在折線下方：捲到看得見 */
     try { $("#fb-err").scrollIntoView({ block: "nearest" }); } catch (e) {}
-    if (V.unlocked && !V.muted) V.speakLine(line).then(ok => { if (ok && V.autoplay && !V.muted) V.speakLine(Q[prog.q].hint.line); });
+    if (V.unlocked && !V.muted) V.speakLine(line).then(ok => { if (ok && V.autoplay && !V.muted) V.speakLine(curQ().hint.line); });
   });
 
   $$(".fs-speak").forEach(btn => {
@@ -444,7 +553,7 @@
       if (!V.unlocked) { document.documentElement.classList.add("is-gated"); return; }
       if (V.muted || btn.disabled) return;
       const id = btn.getAttribute("data-line");
-      const segs = id === Q[winQ].win.line ? winSegments() : null;
+      const segs = id === winQo().win.line ? winSegments() : null;
       V.speakLine(id, segs ? { button: btn, segments: segs } : { button: btn });
     });
   });
@@ -532,8 +641,8 @@
     this._armed = false;
     clearTimeout(this._t);
     this.textContent = isEnLang() ? "Reset" : "重設";
-    prog.q = 0; prog.stars = 0; prog.done = false; winQ = 0;
-    try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+    prog.cur = 1; prog.eps = {}; winEp = 1; winQ = 0;
+    try { localStorage.removeItem(STORE_KEY); localStorage.removeItem(OLD_KEY); } catch (e) {}
     location.hash = "#map";
     location.reload();
   });

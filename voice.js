@@ -552,7 +552,8 @@
     return api.speakLine(lineId, { segments, button });
   };
 
-  api.nodeLines = function (ep, zhName, enName, locked) {
+  api.nodeLines = function (ep, zhName, enName, locked, prev) {
+    prev = prev || "1";
     if (locked === "soon") {
       if (api.lang === "en") return [
         { text: "Episode " + ep + ", " + enName + ".", tone: "calm" },
@@ -569,7 +570,7 @@
       if (locked) return [
         { text: "Episode " + ep + ", " + enName + ".", tone: "calm" },
         { text: "It's still locked.", tone: "hint" },
-        { text: "Finish Episode 1 first.", tone: "hint" }
+        { text: "Finish Episode " + prev + " first.", tone: "hint" }
       ];
       return [
         { text: "Episode " + ep + ",", tone: "calm" },
@@ -580,7 +581,7 @@
     if (locked) return [
       { text: "第 " + ep + " 集，" + zhName + "。", tone: "calm" },
       { text: "這關還沒解鎖。", tone: "hint" },
-      { text: "先走完第 1 集吧。", tone: "hint" }
+      { text: "先走完第 " + prev + " 集吧。", tone: "hint" }
     ];
     return [
       { text: "第 " + ep + " 集，", tone: "calm" },
