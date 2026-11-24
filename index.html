@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#13241C">
+  <title>小豆的童話數學 · 全螢幕示範（方向 A）</title>
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="fullscreen.css">
+  <style>.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}</style>
+</head>
+<body class="fs-body">
+  <main class="fs-stage" id="stage">
+
+    <div class="fs-gate" id="gate" role="dialog" aria-labelledby="gate-title" aria-modal="true">
+      <div class="fs-panel fs-gate__card">
+        <div class="fs-gate__pip"><img src="assets/pip-portrait.jpg" alt="小豆，帶葉耳的橡實精靈（AI 示意）"></div>
+        <h2 id="gate-title" data-i18n-zh="點一下開始" data-i18n-en="Tap to start">點一下開始</h2>
+        <p data-i18n-zh="開啟語音，聽小豆用中文或英文說話。學習內容兩種語言都會看見。" data-i18n-en="Turn on sound to hear Pip in Chinese or English. Both languages stay on screen.">開啟語音，聽小豆用中文或英文說話。學習內容兩種語言都會看見。</p>
+        <button type="button" class="fs-btn fs-btn--primary" id="btn-gate" data-i18n-zh="點一下開始" data-i18n-en="Tap to start">點一下開始</button>
+        <p class="fs-en">Tap to start · unlocks speech for this session</p>
+      </div>
+    </div>
+
+    <!-- 1. 闖關地圖 -->
+    <section class="fs-screen fs-screen--map is-active" id="screen-map" aria-label="闖關地圖">
+      <div class="fs-cover fs-cover--wide">
+        <img src="assets/map-wide.jpg" alt="童話數學谷橫式地圖，金黃色黃昏的森林谷地，沿小路散落小屋與豆莖。AI 示意">
+        <div class="fs-nodes">
+            <button type="button" class="fs-node is-current" style="left:17.5%;top:46%" data-ep="1" data-zh="莓果小路" data-en="Berry Path"><span class="fs-node__pin">1<span class="visually-hidden">第1集進行中</span></span><span class="fs-node__lab">莓果小路<span class="fs-en">Berry Path</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:38%;top:70%" data-ep="2" data-zh="三間小房子" data-en="Three Houses"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第2集未解鎖</span></span><span class="fs-node__lab">三間小房子<span class="fs-en">Three Houses</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:40.5%;top:26.5%" data-ep="3" data-zh="豆莖市集" data-en="Beanstalk Market"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第3集未解鎖</span></span><span class="fs-node__lab">豆莖市集<span class="fs-en">Beanstalk Market</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:38.5%;top:52%" data-ep="4" data-zh="規律小徑" data-en="Pattern Path"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第4集未解鎖</span></span><span class="fs-node__lab">規律小徑<span class="fs-en">Pattern Path</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:62%;top:70.5%" data-ep="5" data-zh="糖果屋" data-en="Candy Cottage"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第5集未解鎖</span></span><span class="fs-node__lab">糖果屋<span class="fs-en">Candy Cottage</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:70%;top:60%" data-ep="6" data-zh="小鴨長大" data-en="Ugly Duckling"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第6集未解鎖</span></span><span class="fs-node__lab">小鴨長大<span class="fs-en">Ugly Duckling</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:85.5%;top:43%" data-ep="7" data-zh="麵包房的鐘" data-en="Midnight Bakery"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第7集未解鎖</span></span><span class="fs-node__lab">麵包房的鐘<span class="fs-en">Midnight Bakery</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:54.5%;top:52%" data-ep="8" data-zh="樂隊調查" data-en="Bremen Band"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第8集未解鎖</span></span><span class="fs-node__lab">樂隊調查<span class="fs-en">Bremen Band</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:44%;top:16%" data-ep="9" data-zh="豆子成倍" data-en="Magic Beans"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第9集未解鎖</span></span><span class="fs-node__lab">豆子成倍<span class="fs-en">Magic Beans</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:72%;top:33.5%" data-ep="10" data-zh="豐收宴" data-en="Harvest Feast"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第10集未解鎖</span></span><span class="fs-node__lab">豐收宴<span class="fs-en">Harvest Feast</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:49%;top:82%" data-ep="11" data-zh="麵包屑羅盤" data-en="Breadcrumb Compass"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第11集未解鎖</span></span><span class="fs-node__lab">麵包屑羅盤<span class="fs-en">Breadcrumb Compass</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:82%;top:20.5%" data-ep="12" data-zh="龍穴百十" data-en="Dragon Cave"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第12集未解鎖</span></span><span class="fs-node__lab">龍穴百十<span class="fs-en">Dragon Cave</span></span></button>
+        </div>
+      </div>
+      <div class="fs-cover fs-cover--portrait">
+        <img src="assets/map-portrait.jpg" alt="童話數學谷直式地圖，小路由近至遠通向豆莖。AI 示意">
+        <div class="fs-nodes">
+            <button type="button" class="fs-node is-current" style="left:50%;top:78%" data-ep="1" data-zh="莓果小路" data-en="Berry Path"><span class="fs-node__pin">1<span class="visually-hidden">第1集進行中</span></span><span class="fs-node__lab">莓果小路<span class="fs-en">Berry Path</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:48%;top:66%" data-ep="2" data-zh="三間小房子" data-en="Three Houses"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第2集未解鎖</span></span><span class="fs-node__lab">三間小房子<span class="fs-en">Three Houses</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:50%;top:28%" data-ep="3" data-zh="豆莖市集" data-en="Beanstalk Market"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第3集未解鎖</span></span><span class="fs-node__lab">豆莖市集<span class="fs-en">Beanstalk Market</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:30%;top:51%" data-ep="4" data-zh="規律小徑" data-en="Pattern Path"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第4集未解鎖</span></span><span class="fs-node__lab">規律小徑<span class="fs-en">Pattern Path</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:52%;top:56%" data-ep="5" data-zh="糖果屋" data-en="Candy Cottage"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第5集未解鎖</span></span><span class="fs-node__lab">糖果屋<span class="fs-en">Candy Cottage</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:48%;top:42%" data-ep="6" data-zh="小鴨長大" data-en="Ugly Duckling"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第6集未解鎖</span></span><span class="fs-node__lab">小鴨長大<span class="fs-en">Ugly Duckling</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:64%;top:35.5%" data-ep="7" data-zh="麵包房的鐘" data-en="Midnight Bakery"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第7集未解鎖</span></span><span class="fs-node__lab">麵包房的鐘<span class="fs-en">Midnight Bakery</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:52%;top:48%" data-ep="8" data-zh="樂隊調查" data-en="Bremen Band"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第8集未解鎖</span></span><span class="fs-node__lab">樂隊調查<span class="fs-en">Bremen Band</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:48%;top:12.5%" data-ep="9" data-zh="豆子成倍" data-en="Magic Beans"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第9集未解鎖</span></span><span class="fs-node__lab">豆子成倍<span class="fs-en">Magic Beans</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:70%;top:30%" data-ep="10" data-zh="豐收宴" data-en="Harvest Feast"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第10集未解鎖</span></span><span class="fs-node__lab">豐收宴<span class="fs-en">Harvest Feast</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:28%;top:72%" data-ep="11" data-zh="麵包屑羅盤" data-en="Breadcrumb Compass"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第11集未解鎖</span></span><span class="fs-node__lab">麵包屑羅盤<span class="fs-en">Breadcrumb Compass</span></span></button>
+            <button type="button" class="fs-node is-locked" style="left:52%;top:23%" data-ep="12" data-zh="龍穴百十" data-en="Dragon Cave"><span class="fs-node__pin"><span aria-hidden="true">🔒</span><span class="visually-hidden">第12集未解鎖</span></span><span class="fs-node__lab">龍穴百十<span class="fs-en">Dragon Cave</span></span></button>
+        </div>
+      </div>
+      <div class="fs-vignette"></div>
+      <header class="fs-top">
+        <button type="button" class="fs-icon-btn" id="btn-home" data-i18n-zh="首頁" data-i18n-en="Home" aria-label="首頁（示範）">
+          <svg viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1z"/></svg>
+        </button>
+        <div class="fs-top__title">
+          <h1><span class="fs-title-long" data-i18n-zh="童話數學谷" data-i18n-en="Fairytale Maths Valley">童話數學谷</span><span class="fs-title-short" data-i18n-zh="數學谷" data-i18n-en="Valley">數學谷</span></h1>
+          <span class="fs-en" data-i18n-zh="選一條小路開始第 1 集" data-i18n-en="Pick a path to start Episode 1">選一條小路開始第 1 集</span>
+        </div>
+        <div class="fs-stars" aria-label="星星 0 顆，共 36 顆"><span class="fs-stars__icon">★</span> 0 / 36</div>
+        <div class="fs-lang" role="group" aria-label="語言與語音切換">
+          <button type="button" class="fs-lang__opt is-on" data-lang="zh" aria-pressed="true">中</button>
+          <button type="button" class="fs-lang__opt" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button type="button" class="fs-icon-btn fs-mute js-mute" aria-pressed="false" aria-label="語音開著，點一下靜音">
+          <svg class="fs-mute__on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h3l4 4V6L7 10H4z"/><path d="M16 9.2a3.6 3.6 0 0 1 0 5.6"/><path d="M18.6 7a7 7 0 0 1 0 10"/></svg>
+          <svg class="fs-mute__off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h3l4 4V6L7 10H4z"/></svg>
+        </button>
+        <button type="button" class="fs-icon-btn" id="btn-settings" aria-label="設定">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2M12 19v2M5 12H3M21 12h-2M6 6l1.4 1.4M16.6 16.6 18 18M18 6l-1.4 1.4M7.4 16.6 6 18"/></svg>
+        </button>
+      </header>
+      <span class="fs-ai">AI 示意</span>
+    </section>
+
+    <!-- 2. 故事＋題目 -->
+    <section class="fs-screen fs-screen--story" id="screen-story" aria-label="第 1 集 故事與題目">
+      <div class="fs-cover fs-cover--wide">
+        <img src="assets/story-wide.jpg" alt="小豆提燈，與穿赤陶橘色斗篷的小紅斗篷走在黃昏森林小路上。AI 示意">
+      </div>
+      <div class="fs-cover fs-cover--portrait">
+        <img src="assets/story-portrait.jpg" alt="小豆與小紅斗篷走在直式構圖的森林小路，人物偏上方。AI 示意">
+      </div>
+      <div class="fs-vignette"></div>
+      <header class="fs-top">
+        <button type="button" class="fs-icon-btn js-to-map" data-i18n-zh="返回地圖" data-i18n-en="Back to map" aria-label="返回地圖">
+          <svg viewBox="0 0 24 24"><path d="M15 5 8 12l7 7"/></svg>
+        </button>
+        <div class="fs-top__title">
+          <h1><span class="fs-title-long" data-i18n-zh="第 1 集 · 莓果小路" data-i18n-en="Ep 1 · Berry Path">第 1 集 · 莓果小路</span><span class="fs-title-short" data-i18n-zh="第 1 集" data-i18n-en="Ep 1">第 1 集</span></h1>
+          <span class="fs-en">數到 99 的位值 · Place value to 99</span>
+        </div>
+        <div class="fs-stars" aria-label="星星 0 顆，共 36 顆"><span class="fs-stars__icon">★</span> 0 / 36</div>
+        <div class="fs-lang" role="group" aria-label="語言與語音切換">
+          <button type="button" class="fs-lang__opt is-on" data-lang="zh" aria-pressed="true">中</button>
+          <button type="button" class="fs-lang__opt" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button type="button" class="fs-icon-btn fs-mute js-mute" aria-pressed="false" aria-label="語音開著，點一下靜音">
+          <svg class="fs-mute__on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h3l4 4V6L7 10H4z"/><path d="M16 9.2a3.6 3.6 0 0 1 0 5.6"/><path d="M18.6 7a7 7 0 0 1 0 10"/></svg>
+          <svg class="fs-mute__off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h3l4 4V6L7 10H4z"/></svg>
+        </button>
+        <button type="button" class="fs-icon-btn js-settings"  aria-label="設定">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2M12 19v2M5 12H3M21 12h-2M6 6l1.4 1.4M16.6 16.6 18 18M18 6l-1.4 1.4M7.4 16.6 6 18"/></svg>
+        </button>
+      </header>
+
+      <aside class="fs-pip">
+        <div class="fs-pip__avatar">
+          <img src="assets/pip-portrait.jpg" alt="小豆，帶葉耳的橡實精靈，提著燈（AI 示意）">
+        </div>
+        <div class="fs-pip__text">
+          <div class="fs-pip__bubble" data-line="pipHint">
+            <span class="fs-say fs-say--zh" data-i="0">先數幾個「十」，</span><span class="fs-say fs-say--zh" data-i="1">再數剩下的「一」！</span>
+            <span class="fs-en"><span class="fs-say fs-say--en" data-i="0">Count the tens first,</span> <span class="fs-say fs-say--en" data-i="1">then the ones!</span></span>
+          </div>
+          <button type="button" class="fs-speak" data-line="pipHint" aria-pressed="false" aria-label="重聽小豆的話">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h3l4 4V6L7 10H4z"/><path d="M16 9.2a3.6 3.6 0 0 1 0 5.6"/><path d="M18.6 7a7 7 0 0 1 0 10"/></svg>
+          <span class="fs-speak__waves" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+        </div>
+      </aside>
+
+      <form class="fs-panel fs-quest" id="quest" onsubmit="return false;">
+        <div class="fs-quest__head">
+          <div class="fs-quest__head-body">
+            <p class="fs-quest__kicker">第 1 集 · 位值題 · Place value</p>
+            <h2 class="fs-quest__title" data-line="quest">
+              <span class="fs-say fs-say--zh" data-i="0">4 盤十格再加 7 顆，</span><span class="fs-say fs-say--zh" data-i="1">一共幾顆？</span>
+            </h2>
+            <span class="fs-en"><span class="fs-say fs-say--en" data-i="0">4 full ten-frames plus 7 berries — </span><span class="fs-say fs-say--en" data-i="1">how many in all?</span></span>
+          </div>
+          <button type="button" class="fs-speak" data-line="quest" aria-pressed="false" aria-label="重聽題目">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h3l4 4V6L7 10H4z"/><path d="M16 9.2a3.6 3.6 0 0 1 0 5.6"/><path d="M18.6 7a7 7 0 0 1 0 10"/></svg>
+          <span class="fs-speak__waves" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+        </div>
+        <div class="fs-frames" aria-hidden="true">
+          <div class="fs-tf"><div class="fs-tf__lab">10</div><div class="fs-tf__grid"><span class="fs-tf__cell"><i class="fs-berry fs-berry--p"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--p"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--p"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--p"></i></span></div></div><div class="fs-tf"><div class="fs-tf__lab">10</div><div class="fs-tf__grid"><span class="fs-tf__cell"><i class="fs-berry fs-berry--p"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--p"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--p"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--p"></i></span></div></div><div class="fs-tf"><div class="fs-tf__lab">10</div><div class="fs-tf__grid"><span class="fs-tf__cell"><i class="fs-berry fs-berry--p"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--p"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--p"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--p"></i></span></div></div><div class="fs-tf"><div class="fs-tf__lab">10</div><div class="fs-tf__grid"><span class="fs-tf__cell"><i class="fs-berry fs-berry--p"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--p"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--p"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--p"></i></span></div></div><div class="fs-tf fs-tf--part"><div class="fs-tf__lab">7</div><div class="fs-tf__grid"><span class="fs-tf__cell"><i class="fs-berry fs-berry--p"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--p"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--r"></i></span><span class="fs-tf__cell"><i class="fs-berry fs-berry--p"></i></span><span class="fs-tf__cell"></span><span class="fs-tf__cell"></span><span class="fs-tf__cell"></span></div></div>
+        </div>
+        <div class="fs-choices" role="radiogroup" aria-label="答案">
+          <button type="button" class="fs-choice" role="radio" aria-checked="false" data-val="47">47</button>
+          <button type="button" class="fs-choice" role="radio" aria-checked="false" data-val="74">74</button>
+          <button type="button" class="fs-choice" role="radio" aria-checked="false" data-val="407">407</button>
+          <button type="button" class="fs-choice" role="radio" aria-checked="false" data-val="11">11</button>
+        </div>
+        <div class="fs-feedback fs-feedback--err" id="fb-err" role="alert" data-line="err">
+          <div>
+            <span class="fs-say fs-say--zh" data-i="0">再試一次。</span><span class="fs-say fs-say--zh" data-i="1">4 和 7 對調就變成 74 了。</span>
+            <span class="fs-en"><span class="fs-say fs-say--en" data-i="0">Try again. </span><span class="fs-say fs-say--en" data-i="1">If you swap 4 and 7, it becomes 74.</span></span>
+          </div>
+          <button type="button" class="fs-speak" data-line="err" aria-pressed="false" aria-label="重聽提示">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h3l4 4V6L7 10H4z"/><path d="M16 9.2a3.6 3.6 0 0 1 0 5.6"/><path d="M18.6 7a7 7 0 0 1 0 10"/></svg>
+          <span class="fs-speak__waves" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+        </div>
+        <div class="fs-feedback fs-feedback--hint" id="fb-hint" data-line="hint">
+          <div>
+            <span class="fs-say fs-say--zh" data-i="0">想一想：</span><span class="fs-say fs-say--zh" data-i="1">4 個十是 40，</span><span class="fs-say fs-say--zh" data-i="2">再加 7 個一，就是 47。</span><span class="fs-say fs-say--zh" data-i="3">不要只把 4 和 7 排在一起，</span><span class="fs-say fs-say--zh" data-i="4">也不要把 4 個十寫成 400。</span>
+            <span class="fs-en" style="color:var(--color-hint-text)"><span class="fs-say fs-say--en" data-i="0">Think about it. </span><span class="fs-say fs-say--en" data-i="1">4 tens are 40, </span><span class="fs-say fs-say--en" data-i="2">plus 7 ones is 47. </span><span class="fs-say fs-say--en" data-i="3">Don’t swap them to 74, </span><span class="fs-say fs-say--en" data-i="4">and don’t write 407.</span></span>
+          </div>
+          <button type="button" class="fs-speak" data-line="hint" aria-pressed="false" aria-label="重聽說明">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h3l4 4V6L7 10H4z"/><path d="M16 9.2a3.6 3.6 0 0 1 0 5.6"/><path d="M18.6 7a7 7 0 0 1 0 10"/></svg>
+          <span class="fs-speak__waves" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+        </div>
+        <p class="fs-voice-note">這個瀏覽器沒有可用的語音。請先讀畫面上的字，或換一個有語音的瀏覽器。<span class="fs-en">Speech isn’t available in this browser. Please read the words on the screen.</span></p>
+        <div class="fs-quest__actions">
+          <button type="button" class="fs-btn fs-btn--ghost" id="btn-hint" data-i18n-zh="提示 Hint" data-i18n-en="Hint">提示 Hint</button>
+          <button type="button" class="fs-btn fs-btn--primary" id="btn-check" data-i18n-zh="檢查答案 Check" data-i18n-en="Check">檢查答案 Check</button>
+        </div>
+      </form>
+      <span class="fs-ai">AI 示意</span>
+    </section>
+
+    <!-- 3. 答對慶祝 -->
+    <section class="fs-screen fs-screen--win" id="screen-win" aria-label="答對了">
+      <div class="fs-cover fs-cover--wide">
+        <img src="assets/celebrate-wide.jpg" alt="黃昏森林空地，陽光從樹間灑下，金葉與螢火。AI 示意">
+      </div>
+      <div class="fs-cover fs-cover--portrait">
+        <img src="assets/celebrate-portrait.jpg" alt="直式森林空地，陽光由上灑下，前景是柔焦葉叢。AI 示意">
+      </div>
+      <div class="fs-vignette"></div>
+      <div class="fs-fx" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <header class="fs-top">
+        <button type="button" class="fs-icon-btn js-to-map" data-i18n-zh="返回地圖" data-i18n-en="Back to map" aria-label="返回地圖">
+          <svg viewBox="0 0 24 24"><path d="M15 5 8 12l7 7"/></svg>
+        </button>
+        <div class="fs-top__title">
+          <h1><span class="fs-title-long" data-i18n-zh="第 1 集 · 答對了" data-i18n-en="Episode 1 · Well done">第 1 集 · 答對了</span><span class="fs-title-short" data-i18n-zh="答對了" data-i18n-en="Well done">答對了</span></h1>
+          <span class="fs-en">You earned a star</span>
+        </div>
+        <div class="fs-stars" aria-label="星星 1 顆，共 36 顆"><span class="fs-stars__icon">★</span> 1 / 36</div>
+        <div class="fs-lang" role="group" aria-label="語言與語音切換">
+          <button type="button" class="fs-lang__opt is-on" data-lang="zh" aria-pressed="true">中</button>
+          <button type="button" class="fs-lang__opt" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button type="button" class="fs-icon-btn fs-mute js-mute" aria-pressed="false" aria-label="語音開著，點一下靜音">
+          <svg class="fs-mute__on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h3l4 4V6L7 10H4z"/><path d="M16 9.2a3.6 3.6 0 0 1 0 5.6"/><path d="M18.6 7a7 7 0 0 1 0 10"/></svg>
+          <svg class="fs-mute__off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h3l4 4V6L7 10H4z"/></svg>
+        </button>
+        <button type="button" class="fs-icon-btn js-settings"  aria-label="設定">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2M12 19v2M5 12H3M21 12h-2M6 6l1.4 1.4M16.6 16.6 18 18M18 6l-1.4 1.4M7.4 16.6 6 18"/></svg>
+        </button>
+      </header>
+      <div class="fs-win">
+        <div class="fs-win__pip">
+          <img src="assets/pip-portrait.jpg" alt="小豆歡呼，帶葉耳的橡實精靈提著燈（AI 示意）">
+        </div>
+        <div class="fs-panel fs-win__card">
+          <div class="fs-win__star" aria-hidden="true">★</div>
+          <div class="fs-win__copy" data-line="win">
+            <div class="fs-win__copy-body">
+              <h2><span class="fs-say fs-say--zh" data-i="0">答對了！</span></h2>
+              <p style="margin:6px 0 0;font-size:18px;"><span class="fs-say fs-say--zh" data-i="1">4 個十加 7 個一，一共是 47。</span> <span class="fs-say fs-say--zh" data-i="2">得到 1 顆星星。</span></p>
+              <span class="fs-en"><span class="fs-say fs-say--en" data-i="0">You did it! </span><span class="fs-say fs-say--en" data-i="1">4 tens and 7 ones make 47. </span><span class="fs-say fs-say--en" data-i="2">You earned 1 star.</span></span>
+            </div>
+            <button type="button" class="fs-speak" data-line="win" aria-pressed="false" aria-label="重聽祝賀">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h3l4 4V6L7 10H4z"/><path d="M16 9.2a3.6 3.6 0 0 1 0 5.6"/><path d="M18.6 7a7 7 0 0 1 0 10"/></svg>
+          <span class="fs-speak__waves" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+          </div>
+          <div class="fs-win__actions">
+            <button type="button" class="fs-btn fs-btn--secondary js-to-map" data-i18n-zh="回到地圖" data-i18n-en="Back to map">回到地圖</button>
+            <button type="button" class="fs-btn fs-btn--primary" id="btn-next" data-i18n-zh="下一題（示範）" data-i18n-en="Next (demo)">下一題（示範）</button>
+          </div>
+        </div>
+      </div>
+      <span class="fs-ai">AI 示意</span>
+    </section>
+
+    <div class="fs-panel fs-settings" id="settings" role="dialog" aria-label="設定" hidden>
+      <h3 data-i18n-zh="設定" data-i18n-en="Settings">設定</h3>
+      <div class="fs-switch-row">
+        <span data-i18n-zh="語速" data-i18n-en="Speech rate">語速</span>
+        <div class="fs-seg" role="group" aria-label="語速">
+          <button type="button" id="rate-slow" data-rate="slow" data-i18n-zh="慢" data-i18n-en="Slow">慢</button>
+          <button type="button" id="rate-normal" data-rate="normal" class="is-on" data-i18n-zh="一般" data-i18n-en="Normal">一般</button>
+        </div>
+      </div>
+      <div class="fs-switch-row">
+        <span data-i18n-zh="自動播放語音" data-i18n-en="Auto-play speech">自動播放語音</span>
+        <button type="button" class="fs-btn fs-btn--ghost" id="tog-autoplay" aria-pressed="true" style="min-width:72px;padding:0 12px">開</button>
+      </div>
+      <div class="fs-switch-row">
+        <span data-i18n-zh="答對／答錯音效" data-i18n-en="Success / error sounds">答對／答錯音效</span>
+        <button type="button" class="fs-btn fs-btn--ghost" id="tog-sound" aria-pressed="true" style="min-width:72px;padding:0 12px">開</button>
+      </div>
+      <div class="fs-switch-row">
+        <span data-i18n-zh="減少動畫" data-i18n-en="Reduce motion">減少動畫</span>
+        <button type="button" class="fs-btn fs-btn--ghost" id="tog-motion" aria-pressed="false" style="min-width:72px;padding:0 12px">關</button>
+      </div>
+      <p class="fs-settings__hint" id="voice-status">語音：準備中</p>
+      <p class="fs-settings__hint" data-i18n-zh="示範用瀏覽器語音。正式版請用可商用授權的錄音或 TTS，中英同一角色聲線。" data-i18n-en="Demo uses the browser voice. Production should use a licensed recording or TTS, same character in both languages.">示範用瀏覽器語音。正式版請用可商用授權的錄音或 TTS，中英同一角色聲線。</p>
+    </div>
+
+    <div class="fs-toast" id="toast" role="status"></div>
+
+    <nav class="fs-demo" aria-label="示範畫面切換">
+      <button type="button" data-screen="map" class="is-on">地圖</button>
+      <button type="button" data-screen="story">第 1 集</button>
+      <button type="button" data-screen="win">慶祝</button>
+    </nav>
+  </main>
+
+  <script src="voice.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

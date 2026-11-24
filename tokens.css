@@ -1,0 +1,172 @@
+/* 小豆的童話數學 · 方向 A 童話森林電影感 · 設計權杖
+   對應 SPEC.md。工程師請只透過這些變數改主題，不要在元件裡寫死色碼。 */
+
+@font-face {
+  font-family: "Fredoka";
+  src: url("fonts/Fredoka.ttf") format("truetype");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("fonts/Nunito.ttf") format("truetype");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "ZCOOL XiaoWei";
+  src: url("fonts/ZCOOLXiaoWei-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Noto Sans TC";
+  src: url("fonts/NotoSansTC-Variable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+
+:root {
+  /* ——— 色彩 ——— */
+  --color-ink: #241C14;
+  --color-muted: #5C4E3C;
+  --color-cream: #F7F0E4;
+  --color-cream-deep: #EFE4D0;
+  --color-gold: #C9A227;
+  --color-gold-bright: #E8C35A;
+  --color-gold-button: #F0D36A;
+  --color-gold-shadow: #8A6A12;
+  --color-forest: #1F3A2E;
+  --color-forest-deep: #14241C;
+  --color-forest-bg: #13241C;
+  --color-terra: #C45C38;
+  --color-moss: #3E6B4F;
+  /* #2F7D4A 在 cream 上對比 4.46，未過 AA 正文；改為 #2C7445（5.02） */
+  --color-success: #2C7445;
+  --color-success-text: #1B4A2A;
+  --color-success-bg: #E8F6EA;
+  --color-error: #9A3B28;
+  --color-error-bg: #F8E8E2;
+  --color-hint-text: #4A3A10;
+  --color-hint-bg: #FFF6D8;
+  --color-lock-bg: #2A3D33;
+  --color-lock-fg: #C9C0B0;
+  --color-white: #FFFFFF;
+  --color-btn-ink: #1A1408;
+
+  --color-text: var(--color-ink);
+  --color-text-on-dark: var(--color-cream);
+  --color-bg: var(--color-forest-bg);
+  --color-surface: var(--color-cream);
+  --color-border-soft: rgba(36, 28, 20, 0.16);
+  --color-focus-light: var(--color-forest);
+  --color-focus-dark: var(--color-gold-bright);
+
+  /* ——— 字族 ——— */
+  --font-display-zh: "ZCOOL XiaoWei", "Noto Sans TC", serif;
+  --font-display-en: "Fredoka", "Nunito", sans-serif;
+  --font-body-zh: "Noto Sans TC", sans-serif;
+  --font-body-en: "Nunito", "Noto Sans TC", sans-serif;
+  --font-ui: "Nunito", "Noto Sans TC", sans-serif;
+
+  /* ——— 字級（桌機，設計寬 1440） ——— */
+  --fs-display: 34px;
+  --lh-display: 1.2;
+  --fs-title: 26px;
+  --lh-title: 1.25;
+  --fs-title-en: 20px;
+  --fs-body: 18px;
+  --lh-body: 1.55;
+  --fs-body-en: 15px;
+  --lh-body-en: 1.45;
+  --fs-button: 18px;
+  --fs-caption: 13px;
+  --lh-caption: 1.4;
+  --fs-kicker: 12px;
+  --ls-kicker: 0.06em;
+  --fs-num: 36px;
+  --fs-pin: 20px;
+
+  /* ——— 間距（4px 基準） ——— */
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-64: 64px;
+
+  /* ——— 圓角 ——— */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-card: 20px;
+  --radius-btn: 16px;
+  --radius-pill: 999px;
+
+  /* ——— 陰影與柔光 ——— */
+  --shadow-card:
+    0 12px 40px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  --shadow-btn-primary:
+    0 4px 0 var(--color-gold-shadow),
+    0 8px 20px rgba(0, 0, 0, 0.25);
+  --shadow-btn-secondary:
+    0 3px 0 #0F241C,
+    0 8px 16px rgba(0, 0, 0, 0.22);
+  --glow-gold: 0 0 0 6px rgba(232, 195, 90, 0.45);
+  --glow-soft: 0 0 24px rgba(232, 195, 90, 0.35);
+  --shadow-pin: 0 6px 16px rgba(0, 0, 0, 0.35);
+
+  /* ——— 動態 ——— */
+  --dur-fast: 150ms;
+  --dur: 250ms;
+  --dur-slow: 400ms;
+  --ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-standard: cubic-bezier(0.33, 1, 0.68, 1);
+
+  /* ——— 觸控與版心 ——— */
+  --tap-min: 48px;
+  --tap-pref: 56px;
+  --page-pad: 24px;
+  --content-max: 1440px;
+  --bp-tablet: 700px;
+  --bp-desktop: 1100px;
+}
+
+@media (max-width: 699px) {
+  :root {
+    --fs-display: 22px;
+    --fs-title: 18px;
+    --fs-title-en: 15px;
+    --fs-body: 15px;
+    --fs-body-en: 13px;
+    --fs-button: 16px;
+    --fs-caption: 12px;
+    --fs-kicker: 11px;
+    --fs-num: 28px;
+    --fs-pin: 18px;
+    --page-pad: 16px;
+    --radius-card: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0.01ms;
+    --dur: 0.01ms;
+    --dur-slow: 0.01ms;
+  }
+}

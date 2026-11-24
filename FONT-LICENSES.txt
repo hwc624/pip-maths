@@ -1,0 +1,23 @@
+小豆的童話數學 · 方向 A 字型授權
+
+本專案只用免費可商用字型，授權皆為 SIL Open Font License 1.1。
+完整授權原文見 fonts/licenses/ 內各檔。
+
+英文
+- Fredoka（The Fredoka Project Authors / Indian Type Foundry，經 Google Fonts）
+  SIL OFL 1.1　fonts/Fredoka.ttf　fonts/licenses/OFL-Fredoka.txt
+- Nunito（The Nunito Project Authors）
+  SIL OFL 1.1　fonts/Nunito.ttf　fonts/licenses/OFL-Nunito.txt
+
+中文
+- ZCOOL XiaoWei 站酷小薇 LOGOTYPE（The ZCOOL XiaoWei Project Authors / 站酷 Zheng Longjie）
+  SIL OFL 1.1　fonts/ZCOOLXiaoWei-Regular.ttf　fonts/licenses/OFL-ZCOOLXiaoWei.txt
+  此字只有 Regular，標題不要用瀏覽器假粗體。
+- Noto Sans TC（Adobe Source Han Sans / Google，Reserved Font Name「Source」）
+  SIL OFL 1.1　fonts/NotoSansTC-Variable.ttf　fonts/licenses/OFL-NotoSansTC.txt
+
+使用對照
+- 中文標題：ZCOOL XiaoWei
+- 英文標題：Fredoka
+- 中文內文與介面：Noto Sans TC
+- 英文內文與按鈕：Nunito（可與 Noto Sans TC 混排）
