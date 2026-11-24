@@ -57,13 +57,37 @@
         "503": { line: "err4hund", zh: ["再試一次。", "5 捆是 5 個十，是 50，不是 500。"], en: ["Try again. ", "5 bundles are 5 tens: 50, not 500."] },
         "8":   { line: "err4ones", zh: ["再試一次。", "每捆有 10 根，5 捆是 5 個十，不是 5 個一。"], en: ["Try again. ", "Each bundle has 10 logs, so 5 bundles are 5 tens, not 5 ones."] } },
       hint: { line: "hint4", zh: ["想一想：", "5 捆是 5 個十，就是 50，", "再加 3 根，就是 53。"], en: ["Think about it. ", "5 bundles are 5 tens. That’s 50, ", "plus 3 more is 53."] },
-      win: { line: "win4", zh: ["答對了！", "5 個十加 3 個一，一共是 53。", "第 1 集完成，3 顆星都拿到了！"], en: ["You did it! ", "5 tens and 3 ones make 53. ", "Episode 1 complete. You have all 3 stars!"], star: false } }
+      win: { line: "win4", zh: ["答對了！", "5 個十加 3 個一，一共是 53。", "奶奶的果醬做好了，好香啊！第 1 集完成，3 顆星都拿到了！"], en: ["You did it! ", "5 tens and 3 ones make 53. ", "Grandma’s jam is ready, and it smells wonderful! Episode 1 complete. You have all 3 stars!"], star: false } }
   ];
+
+  /* ——— 第 1 集的故事：開場、第 2–4 題小豆的話（第 1 題沿用原本「先數十再數一」） ——— */
+  const EP1_STORY = {
+    intro: { zh: ["奶奶要做莓果果醬，需要好多莓果。", "小紅斗篷提著籃子，小豆提燈帶路。", "一顆一顆數容易數亂，", "我們每 10 顆裝成一盤吧！"],
+             en: ["Grandma is making berry jam and needs lots of berries. ", "Little Red Cape carries the basket, and Pip lights the way. ", "Counting one by one gets muddled, ", "so let’s put every 10 berries on a tray!"] },
+    beats: [null,
+      { zh: ["奶奶說還要雞蛋做蛋糕，", "雞蛋也是 10 顆一盤。"], en: ["Grandma needs eggs for a cake too. ", "Eggs come 10 to a tray as well."] },
+      { zh: ["小紅斗篷把莓果寫成算式，", "考考你！"], en: ["Little Red Cape wrote the berries as a sum ", "to test you!"] },
+      { zh: ["樵夫叔叔送來生火的木頭，", "每 10 根綁成一捆。"], en: ["The woodcutter brought logs for the fire, ", "tied in bundles of 10."] }]
+  };
+  (function registerEp1Story() {
+    const z = window.PipEpisodes ? window.PipEpisodes.zhSpeak : (t => t);
+    const reg = (id, zh, en) => {
+      const seg = (arr, lang) => arr.map((t, i) => ({ text: lang === "zh" ? z(t) : t.trim(), tone: i === arr.length - 1 ? "excited" : "calm" }));
+      V.LINES[id] = { zh: seg(zh, "zh"), en: seg(en, "en") };
+    };
+    reg("e1intro", EP1_STORY.intro.zh, EP1_STORY.intro.en);
+    EP1_STORY.beats.forEach((b, i) => {
+      if (!b) return;
+      reg("e1q" + (i + 1) + "b", b.zh, b.en);
+      Q[i].beat = { line: "e1q" + (i + 1) + "b", zh: b.zh, en: b.en };
+    });
+  })();
 
   /* ——— 12 集資料：第 1 集在上面（沿用原本台詞），第 2–12 集在 episodes.js ——— */
   const EPS = Object.assign({
     1: { ep: 1, zh: "莓果小路", en: "Berry Path", sub: "數到 99 的位值 · Place value to 99",
-         pip: { line: "pipHint" }, qs: Q, original: true }
+         pip: { line: "pipHint" }, qs: Q, original: true,
+         intro: { line: "e1intro", zh: EP1_STORY.intro.zh, en: EP1_STORY.intro.en } }
   }, window.PipEpisodes ? window.PipEpisodes.build(V) : {});
   const LAST_EP = Math.max.apply(null, Object.keys(EPS).map(Number));
 
@@ -136,27 +160,35 @@
     el.textContent = isEnLang() ? en : zh;
   }
 
+  function renderBubble(line, zh, en) {
+    const b = $(".fs-pip__bubble");
+    if (b.getAttribute("data-line") === line) return;
+    b.setAttribute("data-line", line);
+    b.innerHTML = "\n            " + say("zh", zh) + '\n            <span class="fs-en">' + say("en", en) + "</span>\n          ";
+  }
+
   function renderStoryChrome() {
-    const E = curE();
+    const E = curE(), q = curQ();
     const spans = $$("#screen-story .fs-top__title h1 > span");
     if (E.original) {
       spans.forEach((sp, i) => setI18n(sp, ORIG.title[i][0], ORIG.title[i][1]));
       $("#screen-story .fs-top__title > .fs-en").textContent = ORIG.sub;
       $$("#screen-story .fs-cover img").forEach((im, i) => { im.setAttribute("src", ORIG.imgs[i][0]); im.setAttribute("alt", ORIG.imgs[i][1]); });
       const b = $(".fs-pip__bubble");
-      if (b.getAttribute("data-line") !== "pipHint") { b.innerHTML = ORIG.pip; b.setAttribute("data-line", "pipHint"); }
-      $(".fs-pip .fs-speak").setAttribute("data-line", "pipHint");
+      if (q.beat) renderBubble(q.beat.line, q.beat.zh, q.beat.en);
+      else if (b.getAttribute("data-line") !== "pipHint") { b.innerHTML = ORIG.pip; b.setAttribute("data-line", "pipHint"); }
+      $(".fs-pip .fs-speak").setAttribute("data-line", q.beat ? q.beat.line : "pipHint");
     } else {
       setI18n(spans[0], "第 " + E.ep + " 集 · " + E.zh, "Ep " + E.ep + " · " + E.en);
       setI18n(spans[1], "第 " + E.ep + " 集", "Ep " + E.ep);
       $("#screen-story .fs-top__title > .fs-en").textContent = E.sub;
       const imgs = $$("#screen-story .fs-cover img");
-      imgs[0].setAttribute("src", SCENE.wide[0]); imgs[0].setAttribute("alt", SCENE.wide[1]);
-      imgs[1].setAttribute("src", SCENE.portrait[0]); imgs[1].setAttribute("alt", SCENE.portrait[1]);
-      const b = $(".fs-pip__bubble");
-      b.setAttribute("data-line", E.pip.line);
-      b.innerHTML = "\n            " + say("zh", E.pip.zh) + '\n            <span class="fs-en">' + say("en", E.pip.en) + "</span>\n          ";
-      $(".fs-pip .fs-speak").setAttribute("data-line", E.pip.line);
+      const alt = "童話數學谷的" + E.zh + "（" + E.en + "）。AI 示意";
+      imgs[0].setAttribute("src", E.scene ? E.scene.wide : SCENE.wide[0]); imgs[0].setAttribute("alt", alt);
+      imgs[1].setAttribute("src", E.scene ? E.scene.portrait : SCENE.portrait[0]); imgs[1].setAttribute("alt", alt);
+      const bt = q.beat || E.pip;
+      renderBubble(bt.line, bt.zh, bt.en);
+      $(".fs-pip .fs-speak").setAttribute("data-line", bt.line);
     }
     $("#screen-story").setAttribute("aria-label", "第 " + E.ep + " 集 故事與題目");
     const demo = $('.fs-demo [data-screen="story"]');
@@ -335,6 +367,7 @@
     $("#toast").classList.remove("is-show");
     if (!opts.keepSpeech) V.cancel();
     if (name === "story" && opts.fresh) resetQuest();
+    if (name !== "story") closeIntro();
     if (opts.auto !== false && V.unlocked && V.autoplay && !V.muted && !isShot) {
       autoSpeak(name, opts);
     }
@@ -346,7 +379,11 @@
     if (name === "story") {
       const qLine = curQ().line;
       if (opts.questOnly) return V.speakLine(qLine);
-      return V.speakLine(curE().pip.line).then(ok => { if (ok && V.autoplay && !V.muted) return V.speakLine(qLine); });
+      const bl = curQ().beat ? curQ().beat.line : curE().pip.line;
+      if (opts.introFirst) {
+        return V.speakLine(curE().intro.line);
+      }
+      return V.speakLine(bl).then(ok => { if (ok && V.autoplay && !V.muted) return V.speakLine(qLine); });
     }
     if (name === "win") {
       const go = () => V.speakLine(winQo().win.line, { segments: winSegments() });
@@ -386,6 +423,39 @@
     toast.classList.add("is-show");
     clearTimeout(toast._t);
     toast._t = setTimeout(() => toast.classList.remove("is-show"), 2800);
+  }
+
+  /* ——— 開場故事面板 ——— */
+  function openIntro() {
+    const E = curE(), box = $("#intro");
+    box.querySelector(".fs-intro__kicker").textContent = "第 " + E.ep + " 集 · 故事開始 · Story";
+    box.querySelector(".fs-intro__title").innerHTML = E.zh + ' <span class="fs-en">' + E.en + "</span>";
+    const body = box.querySelector(".fs-intro__body");
+    body.setAttribute("data-line", E.intro.line);
+    body.querySelector(".fs-speak").setAttribute("data-line", E.intro.line);
+    body.querySelector(".fs-intro__text").innerHTML = say("zh", E.intro.zh) + '<span class="fs-en">' + say("en", E.intro.en) + "</span>";
+    box.hidden = false;
+    $("#screen-story").classList.add("is-intro");
+    setTimeout(() => { try { $("#btn-intro-go").focus({ preventScroll: true }); } catch (e) {} }, 0);
+  }
+  function closeIntro() {
+    $("#intro").hidden = true;
+    $("#screen-story").classList.remove("is-intro");
+  }
+  /* 進入某一集：從第 1 題開始的話先看開場故事 */
+  function enterEpisode(epN, nodeSegs) {
+    prog.cur = epN;
+    saveProg();
+    renderQuestion();
+    show("story", { auto: false, fresh: true });
+    const fromStart = rec(epN).q === 0 && !isShot;
+    if (fromStart) openIntro(); else closeIntro();
+    const talk = () => {
+      if (!(V.unlocked && V.autoplay && !V.muted && !isShot)) return;
+      return fromStart ? autoSpeak("story", { introFirst: true }) : autoSpeak("story");
+    };
+    if (nodeSegs && V.unlocked && !V.muted) V.speakSegments("node", nodeSegs).then(ok => { if (ok) talk(); });
+    else talk();
   }
 
   renderQuestion();
@@ -441,23 +511,26 @@
       prog.cur = winEp;
       renderQuestion();
       show("story", { auto: false, fresh: true });
-      if (V.unlocked && V.autoplay && !V.muted && !isShot) autoSpeak("story", { questOnly: true });
+      if (V.unlocked && V.autoplay && !V.muted && !isShot) autoSpeak("story");
       return;
     }
-    /* 這一集完成：回地圖，下一集已解鎖 */
-    show("map", { auto: false });
+    /* 這一集完成：直接走進下一集的開場故事 */
     const nx = EPS[E.ep + 1];
     if (nx) {
-      showToast(isEnLang() ? "Episode " + nx.ep + " “" + nx.en + "” is open!"
-        : "第 " + nx.ep + " 集「" + nx.zh + "」解鎖了！" + '<span class="fs-en">Episode ' + nx.ep + " “" + nx.en + "” is open!</span>");
-      if (V.unlocked && !V.muted) V.speakSegments("node", V.nodeLines(String(nx.ep), nx.zh, nx.en, false));
+      enterEpisode(nx.ep, V.nodeLines(String(nx.ep), nx.zh, nx.en, false));
     } else {
+      show("map", { auto: false });
       const st = totalStars();
       showToast(isEnLang() ? "All " + LAST_EP + " episodes done! " + st + " / 36 stars."
         : LAST_EP + " 集全部完成！一共 " + st + " / 36 顆星星。" + '<span class="fs-en">All ' + LAST_EP + " episodes done! " + st + " / 36 stars.</span>");
     }
   });
   $$(".fs-demo [data-screen=story]").forEach(b => b.addEventListener("click", () => resetQuest(), true));
+  $("#btn-intro-go").addEventListener("click", () => {
+    closeIntro();
+    V.cancel();
+    if (V.unlocked && V.autoplay && !V.muted && !isShot) autoSpeak("story");
+  });
 
   $$(".fs-node").forEach(n => n.addEventListener("click", () => {
     if (!V.unlocked) { document.documentElement.classList.add("is-gated"); return; }
@@ -472,14 +545,8 @@
       V.speakSegments("node", segs);
       return;
     }
-    /* 先換畫面（不自動唸），再唸集名；集名唸完才接小豆與題目，避免互相打斷或交錯 */
-    prog.cur = epN;
-    saveProg();
-    renderQuestion();
-    show("story", { auto: false, fresh: true });
-    V.speakSegments("node", segs).then(ok => {
-      if (ok && V.autoplay && !V.muted && !isShot) autoSpeak("story");
-    });
+    /* 先換畫面（不自動唸），再唸集名；集名唸完才接開場故事或小豆與題目，避免互相打斷或交錯 */
+    enterEpisode(epN, segs);
   }));
 
   var picked = null;

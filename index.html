@@ -179,6 +179,20 @@
           <button type="button" class="fs-btn fs-btn--primary" id="btn-check" data-i18n-zh="檢查答案 Check" data-i18n-en="Check">檢查答案 Check</button>
         </div>
       </form>
+
+      <!-- 每集開場故事 -->
+      <div class="fs-panel fs-intro" id="intro" role="dialog" aria-labelledby="intro-title" hidden>
+        <p class="fs-quest__kicker fs-intro__kicker"></p>
+        <h2 class="fs-intro__title" id="intro-title"></h2>
+        <div class="fs-intro__body" data-line="">
+          <div class="fs-intro__text"></div>
+          <button type="button" class="fs-speak" data-line="" aria-pressed="false" aria-label="重聽故事">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h3l4 4V6L7 10H4z"/><path d="M16 9.2a3.6 3.6 0 0 1 0 5.6"/><path d="M18.6 7a7 7 0 0 1 0 10"/></svg>
+          <span class="fs-speak__waves" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+        </div>
+        <button type="button" class="fs-btn fs-btn--primary" id="btn-intro-go" data-i18n-zh="開始冒險" data-i18n-en="Let’s go">開始冒險</button>
+      </div>
       <span class="fs-ai">AI 示意</span>
     </section>
 

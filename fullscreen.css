@@ -1149,3 +1149,30 @@ html.is-reduce-motion .fs-speak__waves i { animation: none; }
   .fs-vbar { grid-template-columns: 64px 1fr; }
   .fs-vcell { width: 18px; height: 16px; }
 }
+
+/* ——— 每集開場故事面板 ——— */
+.fs-intro {
+  position: absolute;
+  z-index: 17;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 18px 16px;
+  width: min(440px, calc(100vw - var(--hud-pad-x) - var(--hud-pad-r)));
+}
+.fs-intro[hidden] { display: none; }
+.fs-intro__title { margin: 0; font-family: var(--font-display-zh); font-weight: 400; font-size: var(--fs-title); line-height: var(--lh-title); }
+.fs-intro__body { display: flex; align-items: flex-start; gap: 8px; }
+.fs-intro__text { flex: 1 1 auto; min-width: 0; font-size: 17px; line-height: 1.6; }
+.fs-intro__text .fs-en { display: block; margin-top: 6px; font-size: 14px; line-height: 1.45; }
+.fs-intro .fs-btn--primary { align-self: stretch; }
+.fs-screen--story.is-intro .fs-quest,
+.fs-screen--story.is-intro .fs-pip { display: none; }
+@media (min-width: 700px) {
+  .fs-intro { top: 50%; right: var(--hud-pad-r); transform: translateY(-50%); max-height: calc(100vh - 88px); max-height: calc(100dvh - 88px); overflow: auto; }
+}
+@media (max-width: 699px) {
+  .fs-intro { left: var(--hud-pad-x); right: var(--hud-pad-r); width: auto; bottom: var(--hud-pad-b); max-height: var(--thumb-max); overflow: auto; }
+  .fs-intro__text { font-size: 15px; }
+  .fs-intro__text .fs-en { font-size: 13px; }
+}

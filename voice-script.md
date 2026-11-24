@@ -1016,3 +1016,171 @@ Play the short success chime before the celebration line, and the softer error c
   - EN：No bags means 0 in the tens place. `[hint]` What is 300 plus 6? `[hint]`
 - 祝賀：答對了！ `[excited]` 三百加零加六等於三百零六，十位的零表示中袋是空的。 `[calm]` 第十二集完成，三顆星都拿到了！ `[excited]`
   - EN：You did it! `[excited]` 300 plus 0 plus 6 makes 306. The 0 shows there are no bags. `[calm]` Episode 12 complete. You have all 3 stars! `[excited]`
+
+
+---
+
+## 故事台詞（開場、每題小豆的話、結局）
+
+開場在進入一集時唸；小豆的話在每題題目前唸；結局接在最後一題的祝賀裡。
+
+### 第 1 集　莓果小路
+- 開場：奶奶要做莓果果醬，需要好多莓果。小紅斗篷提著籃子，小豆提燈帶路。一顆一顆數容易數亂，我們每十顆裝成一盤吧！
+- 第 2 題：奶奶說還要雞蛋做蛋糕，雞蛋也是十顆一盤。
+- 第 3 題：小紅斗篷把莓果寫成算式，考考你！
+- 第 4 題：樵夫叔叔送來生火的木頭，每十根綁成一捆。
+- 結局：奶奶的果醬做好了，好香啊！
+
+### 第 2 集　三間小房子 / Three Houses
+- 開場：三兄妹要在山谷裡， `[calm]` 各蓋一間新房子。 `[calm]` 可是稻草、木棍和磚頭全混在一起了！ `[calm]` 小豆請你看形狀，幫忙選材料。 `[excited]`
+  - EN：Three siblings are each building a new house in the valley. `[calm]` But the straw, sticks and bricks are all mixed up! `[calm]` Pip needs you to look at the shapes `[calm]` and help choose. `[excited]`
+- 第 1 題：老大用磚頭蓋牆， `[calm]` 牆要疊得又高又穩。 `[excited]`
+  - EN：The eldest is building a brick wall. `[calm]` It must stack high and steady. `[excited]`
+- 第 2 題：老二去麵包房借工具， `[calm]` 要找能滾又能滑的。 `[excited]`
+  - EN：The middle one borrows a tool from the bakery. `[calm]` It must roll and slide. `[excited]`
+- 第 3 題：老三在屋頂開了一扇窗， `[calm]` 它是什麼形狀呢？ `[excited]`
+  - EN：The youngest put a window in the roof. `[calm]` What shape is it? `[excited]`
+- 第 4 題：門口滾來一樣東西， `[calm]` 猜猜它是什麼？ `[excited]`
+  - EN：Something is rolling to the door. `[calm]` Can you guess what it is? `[excited]`
+- 結局（第 4 題祝賀第三句）：三間房子都蓋好了，風再大也吹不倒！第二集完成，三顆星都拿到了！
+  - EN：All three houses are built, and no wind can blow them down! Episode 2 complete. You have all 3 stars!
+
+### 第 3 集　豆莖市集 / Beanstalk Market
+- 開場：豆莖下面有一個熱鬧的市集。 `[calm]` 傑克帶著錢，要幫媽媽買麵包和豆子。 `[calm]` 小豆陪他算清楚， `[calm]` 一塊錢都不能少！ `[excited]`
+  - EN：There is a busy market under the beanstalk. `[calm]` Jack has money to buy bread and beans for his mum. `[calm]` Pip will help him count carefully, `[calm]` so not one rand goes missing! `[excited]`
+- 第 1 題：傑克先挑了麵包和豆子， `[calm]` 兩樣要付多少？ `[excited]`
+  - EN：Jack picks some bread and beans. `[calm]` How much for both? `[excited]`
+- 第 2 題：糖果屋婆婆也來擺攤， `[calm]` 妹妹想買兩樣點心。 `[excited]`
+  - EN：The candy cottage has a stall too. `[calm]` Jack’s sister wants two treats. `[excited]`
+- 第 3 題：傑克打開錢包， `[calm]` 數數裡面有多少錢。 `[excited]`
+  - EN：Jack opens his purse. `[calm]` Let’s count his money. `[excited]`
+- 第 4 題：老闆找了零錢給傑克， `[calm]` 可是他忘了價錢！ `[excited]`
+  - EN：The stall keeper gave Jack his change, `[calm]` but Jack forgot the price! `[excited]`
+- 結局（第 4 題祝賀第三句）：傑克買齊東西，開開心心地走路回家了！第三集完成，三顆星都拿到了！
+  - EN：Jack bought everything and walked home happily! Episode 3 complete. You have all 3 stars!
+
+### 第 4 集　規律小徑 / Pattern Path
+- 開場：龜兔賽跑那天，兔子衝得太快， `[calm]` 把小徑上的路標都踩亂了。 `[calm]` 烏龜走得慢， `[calm]` 反而看出了路標的規律！ `[excited]`
+  - EN：On race day, the hare ran so fast `[calm]` that he knocked all the path signs out of order. `[calm]` The tortoise went slowly, `[calm]` so she spotted the pattern! `[excited]`
+- 第 1 題：第一排路標， `[calm]` 每次都加一樣多。 `[excited]`
+  - EN：On the first signs, `[calm]` the same amount is added each time. `[excited]`
+- 第 2 題：麵包屑也排成規律， `[calm]` 跟著走就不會迷路。 `[excited]`
+  - EN：The breadcrumbs make a pattern too. `[calm]` Follow it and you won’t get lost. `[excited]`
+- 第 3 題：路邊的石頭有圓有方， `[calm]` 最後缺了一塊！ `[excited]`
+  - EN：The stones by the path are round and square, `[calm]` and one is missing! `[excited]`
+- 第 4 題：最後一段路標， `[calm]` 請你說出它的規律。 `[excited]`
+  - EN：On the last signs, `[calm]` can you tell the rule? `[excited]`
+- 結局（第 4 題祝賀第三句）：小徑修好了，烏龜和兔子都順利跑到終點！第四集完成，三顆星都拿到了！
+  - EN：The path is fixed, and the tortoise and the hare both reach the finish! Episode 4 complete. You have all 3 stars!
+
+### 第 5 集　糖果屋 / Candy Cottage
+- 開場：森林深處有一間糖果屋， `[calm]` 屋主婆婆今天請朋友來喝茶。 `[calm]` 點心要公平地分， `[calm]` 誰都不能多拿！ `[excited]`
+  - EN：Deep in the forest is a candy cottage. `[calm]` Today the old lady who lives there has invited friends for tea. `[calm]` The treats must be shared fairly, `[calm]` and no one may take more! `[excited]`
+- 第 1 題：四個朋友到了， `[calm]` 盤子裡有十二塊餅乾。 `[excited]`
+  - EN：4 friends have arrived, `[calm]` and there are 12 biscuits on the plate. `[excited]`
+- 第 2 題：婆婆端出一個大派， `[calm]` 切成一樣大的四塊。 `[excited]`
+  - EN：She brings out a big pie `[calm]` cut into 4 equal pieces. `[excited]`
+- 第 3 題：大家來畫圖比賽， `[calm]` 誰畫出了真正的一半？ `[excited]`
+  - EN：Time for a drawing game. `[calm]` Who drew a true half? `[excited]`
+- 第 4 題：朋友們都吃飽了， `[calm]` 婆婆在想原來有幾塊。 `[excited]`
+  - EN：Everyone has eaten. `[calm]` She wonders how many there were at first. `[excited]`
+- 結局（第 4 題祝賀第三句）：大家都分得一樣多，喝茶時間好開心！第五集完成，三顆星都拿到了！
+  - EN：Everyone got the same, and tea time was lovely! Episode 5 complete. You have all 3 stars!
+
+### 第 6 集　小鴨長大 / Ugly Duckling
+- 開場：池塘邊住著一隻小鴨， `[calm]` 牠總覺得自己跟大家不一樣。 `[calm]` 小豆說：量一量就知道， `[calm]` 大家本來就有高有矮、有大有小！ `[excited]`
+  - EN：A little duckling lives by the pond. `[calm]` It always feels different from everyone else. `[calm]` Pip says: let’s measure, `[calm]` and you’ll see everyone is tall or short, big or small! `[excited]`
+- 第 1 題：小鴨在池邊撿到三根羽毛， `[calm]` 哪一根最長？ `[excited]`
+  - EN：The duckling found three feathers by the pond. `[calm]` Which is longest? `[excited]`
+- 第 2 題：小鴨抬頭看豆莖和小樹， `[calm]` 用葉子來量高。 `[excited]`
+  - EN：The duckling looks up at the beanstalk and a little tree, `[calm]` and measures them in leaves. `[excited]`
+- 第 3 題：朋友們拿容器裝水， `[calm]` 比比誰裝得最多。 `[excited]`
+  - EN：Friends bring things to hold water. `[calm]` Which holds the most? `[excited]`
+- 第 4 題：小鴨的新水瓶， `[calm]` 倒了兩杯才半滿。 `[excited]`
+  - EN：The duckling’s new bottle `[calm]` is only half full after 2 cups. `[excited]`
+- 結局（第 4 題祝賀第三句）：小鴨長大了，原來牠是一隻漂亮的天鵝！第六集完成，三顆星都拿到了！
+  - EN：The duckling grew up into a beautiful swan! Episode 6 complete. You have all 3 stars!
+
+### 第 7 集　麵包房的鐘 / Midnight Bakery
+- 開場：夜裡，小精靈們在麵包房幫老爺爺烤麵包。 `[calm]` 麵包一定要準時出爐， `[calm]` 天亮前才能送到大家家裡。 `[calm]` 小豆請你幫忙看時鐘！ `[excited]`
+  - EN：At night, little elves help the old baker in his bakery. `[calm]` The bread must come out on time `[calm]` to reach every home before sunrise. `[calm]` Pip needs you to read the clock! `[excited]`
+- 第 1 題：麵包放進烤箱了， `[calm]` 看看牆上的大鐘。 `[excited]`
+  - EN：The bread is in the oven. `[calm]` Look at the big clock. `[excited]`
+- 第 2 題：兔子跑去送麵包， `[calm]` 他去了多久呢？ `[excited]`
+  - EN：The hare ran off to deliver bread. `[calm]` How long was he gone? `[excited]`
+- 第 3 題：廚房還有一個數位鐘， `[calm]` 它換了一種說法。 `[excited]`
+  - EN：There’s a digital clock in the kitchen too. `[calm]` It says the time another way. `[excited]`
+- 第 4 題：最後一爐麵包， `[calm]` 再一刻鐘就好了。 `[excited]`
+  - EN：The last batch of bread `[calm]` will be ready in a quarter of an hour. `[excited]`
+- 結局（第 4 題祝賀第三句）：麵包準時出爐，整個山谷都聞到香味了！第七集完成，三顆星都拿到了！
+  - EN：The bread came out on time, and the whole valley smells delicious! Episode 7 complete. You have all 3 stars!
+
+### 第 8 集　樂隊調查 / Bremen Band
+- 開場：四位動物樂師來到山谷， `[calm]` 想知道大家最喜歡哪一種表演。 `[calm]` 他們挨家挨戶問了一遍， `[calm]` 請你幫忙讀圖！ `[excited]`
+  - EN：Four animal musicians have come to the valley. `[calm]` They want to know which act everyone likes best. `[calm]` They asked at every door, `[calm]` and now they need you to read the chart! `[excited]`
+- 第 1 題：樂師把票數畫成圖， `[calm]` 一個音符就是一票。 `[excited]`
+  - EN：The musicians drew the votes as a chart. `[calm]` Each note is one vote. `[excited]`
+- 第 2 題：唱歌的公雞和跳舞的貓在比， `[calm]` 到底差幾票？ `[excited]`
+  - EN：The singing rooster and the dancing cat are comparing. `[calm]` What’s the difference? `[excited]`
+- 第 3 題：小朋友也做了莓果調查， `[calm]` 畫成了長條圖。 `[excited]`
+  - EN：The children did a berry survey too, `[calm]` and drew a bar graph. `[excited]`
+- 第 4 題：晚到的四個朋友， `[calm]` 都說喜歡跳舞！ `[excited]`
+  - EN：4 friends arrived late, `[calm]` and they all love dancing! `[excited]`
+- 結局（第 4 題祝賀第三句）：樂隊決定今晚就來一場跳舞大表演！第八集完成，三顆星都拿到了！
+  - EN：The band will put on a big dance show tonight! Episode 8 complete. You have all 3 stars!
+
+### 第 9 集　豆子成倍 / Magic Beans
+- 開場：傑克的魔豆又長高了， `[calm]` 每一層藤蔓都結出一樣多的豆莢。 `[calm]` 一個一個數好慢， `[calm]` 小豆教你更快的方法！ `[excited]`
+  - EN：Jack’s magic beanstalk has grown again, `[calm]` with the same number of pods on every row. `[calm]` Counting one by one is slow, `[calm]` so Pip will show you a faster way! `[excited]`
+- 第 1 題：先數最下面這四層， `[calm]` 每層一樣多。 `[excited]`
+  - EN：First count the 4 bottom rows. `[calm]` Each row has the same. `[excited]`
+- 第 2 題：龜兔又要比賽了， `[calm]` 跑道上插滿了旗子。 `[excited]`
+  - EN：The tortoise and the hare are racing again, `[calm]` and the track is full of flags. `[excited]`
+- 第 3 題：傑克把豆莢寫成乘法， `[calm]` 你會算嗎？ `[excited]`
+  - EN：Jack wrote the pods as a times sum. `[calm]` Can you work it out? `[excited]`
+- 第 4 題：傑克摘了二十個豆莢， `[calm]` 他摘了幾層呢？ `[excited]`
+  - EN：Jack picked 20 pods. `[calm]` How many rows did he pick? `[excited]`
+- 結局（第 4 題祝賀第三句）：傑克學會了乘法，數豆莢快多了！第九集完成，三顆星都拿到了！
+  - EN：Jack learned to multiply, and counting pods is much faster now! Episode 9 complete. You have all 3 stars!
+
+### 第 10 集　豐收宴 / Harvest Feast
+- 開場：秋天到了，森林動物在長桌上辦豐收宴。 `[calm]` 每一盤食物都要平分， `[calm]` 分不完的就留給晚到的客人。 `[excited]`
+  - EN：It’s autumn, and the forest animals hold a harvest feast at the long table. `[calm]` Every plate must be shared fairly, `[calm]` and leftovers are saved for late guests. `[excited]`
+- 第 1 題：第一盤是二十個蘋果， `[calm]` 四位朋友先坐下來。 `[excited]`
+  - EN：The first plate has 20 apples, `[calm]` and 4 friends sit down. `[excited]`
+- 第 2 題：麵包出爐了， `[calm]` 這次有五個人要分。 `[excited]`
+  - EN：The bread is ready. `[calm]` This time 5 people share. `[excited]`
+- 第 3 題：糖果屋婆婆帶來一罐糖， `[calm]` 要分給三個小朋友。 `[excited]`
+  - EN：The candy cottage lady brought a jar of sweets `[calm]` for 3 children. `[excited]`
+- 第 4 題：宴會結束了， `[calm]` 小老鼠在算原來有幾個蘋果。 `[excited]`
+  - EN：The feast is over. `[calm]` A little mouse wonders how many apples there were. `[excited]`
+- 結局（第 4 題祝賀第三句）：大家吃得飽飽的，豐收宴圓滿成功！第十集完成，三顆星都拿到了！
+  - EN：Everyone is full, and the harvest feast was a great success! Episode 10 complete. You have all 3 stars!
+
+### 第 11 集　麵包屑羅盤 / Breadcrumb Compass
+- 開場：風把漢賽爾和葛麗特的麵包屑吹亂了， `[calm]` 他們找不到路！ `[calm]` 小豆畫了一張方格地圖， `[calm]` 帶大家一格一格走。 `[excited]`
+  - EN：The wind blew Hansel and Gretel’s breadcrumbs away, `[calm]` and they can’t find the way! `[calm]` Pip drew a grid map `[calm]` to guide everyone one square at a time. `[excited]`
+- 第 1 題：先找到地圖上的小豆， `[calm]` 看看旁邊有什麼。 `[excited]`
+  - EN：First find Pip on the map, `[calm]` and see what is next to Pip. `[excited]`
+- 第 2 題：籃子裡的麵包屑掉了， `[calm]` 沿著路往上找。 `[excited]`
+  - EN：Breadcrumbs fell out of the basket. `[calm]` Look up the path. `[excited]`
+- 第 3 題：葛麗特留下了箭號記號， `[calm]` 照著走看看。 `[excited]`
+  - EN：Gretel left arrows as a clue. `[calm]` Follow them. `[excited]`
+- 第 4 題：漢賽爾在大樹下等大家， `[calm]` 小豆要去找他。 `[excited]`
+  - EN：Hansel is waiting under the tree. `[calm]` Pip wants to reach him. `[excited]`
+- 結局（第 4 題祝賀第三句）：大家都找到路，平平安安到家了！第十一集完成，三顆星都拿到了！
+  - EN：Everyone found the way home safely! Episode 11 complete. You have all 3 stars!
+
+### 第 12 集　龍穴百十 / Dragon Cave
+- 開場：山谷最高處住著一隻友善的龍， `[calm]` 牠把金幣分成大箱、中袋和小金幣。 `[calm]` 龍想清點寶藏， `[calm]` 請你幫忙！ `[excited]`
+  - EN：A friendly dragon lives at the top of the valley. `[calm]` It keeps its coins in chests, bags and single coins. `[calm]` The dragon wants to count its treasure, `[calm]` and needs your help! `[excited]`
+- 第 1 題：龍打開了第一堆寶藏， `[calm]` 大箱、中袋、小金幣都有。 `[excited]`
+  - EN：The dragon opens the first pile: `[calm]` chests, bags and coins. `[excited]`
+- 第 2 題：龍想知道， `[calm]` 寶藏大約是幾個十。 `[excited]`
+  - EN：The dragon wants to know `[calm]` roughly how many tens it has. `[excited]`
+- 第 3 題：龍也去圖書館數書， `[calm]` 書也是一百一百地放。 `[excited]`
+  - EN：The dragon counts library books too. `[calm]` They’re stacked in hundreds. `[excited]`
+- 第 4 題：最後一堆寶藏裡， `[calm]` 一個中袋也沒有！ `[excited]`
+  - EN：In the last pile, `[calm]` there are no bags at all! `[excited]`
+- 結局（第 4 題祝賀第三句）：寶藏清點完成，龍請大家一起來慶祝！第十二集完成，三顆星都拿到了！
+  - EN：The treasure is counted, and the dragon invites everyone to celebrate! Episode 12 complete. You have all 3 stars!

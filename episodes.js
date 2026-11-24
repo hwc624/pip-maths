@@ -493,6 +493,89 @@
     }
   };
 
+
+  /* ——— 每集的故事：開場（intro）、每題小豆說的話（beats）、結局（ending） ———
+     beats[i] 會顯示在小豆的泡泡裡，並在題目前唸出來；ending 接在最後一題的祝賀裡。 */
+  const STORY = {
+    2: { intro: { zh: ["三兄妹要在山谷裡，", "各蓋一間新房子。", "可是稻草、木棍和磚頭全混在一起了！", "小豆請你看形狀，幫忙選材料。"],
+                  en: ["Three siblings are each building a new house in the valley. ", "But the straw, sticks and bricks are all mixed up! ", "Pip needs you to look at the shapes ", "and help choose."] },
+         beats: [[["老大用磚頭蓋牆，", "牆要疊得又高又穩。"], ["The eldest is building a brick wall. ", "It must stack high and steady."]],
+                 [["老二去麵包房借工具，", "要找能滾又能滑的。"], ["The middle one borrows a tool from the bakery. ", "It must roll and slide."]],
+                 [["老三在屋頂開了一扇窗，", "它是什麼形狀呢？"], ["The youngest put a window in the roof. ", "What shape is it?"]],
+                 [["門口滾來一樣東西，", "猜猜它是什麼？"], ["Something is rolling to the door. ", "Can you guess what it is?"]]],
+         ending: ["三間房子都蓋好了，風再大也吹不倒！", "All three houses are built, and no wind can blow them down!"] },
+    3: { intro: { zh: ["豆莖下面有一個熱鬧的市集。", "傑克帶著錢，要幫媽媽買麵包和豆子。", "小豆陪他算清楚，", "一塊錢都不能少！"],
+                  en: ["There is a busy market under the beanstalk. ", "Jack has money to buy bread and beans for his mum. ", "Pip will help him count carefully, ", "so not one rand goes missing!"] },
+         beats: [[["傑克先挑了麵包和豆子，", "兩樣要付多少？"], ["Jack picks some bread and beans. ", "How much for both?"]],
+                 [["糖果屋婆婆也來擺攤，", "妹妹想買兩樣點心。"], ["The candy cottage has a stall too. ", "Jack’s sister wants two treats."]],
+                 [["傑克打開錢包，", "數數裡面有多少錢。"], ["Jack opens his purse. ", "Let’s count his money."]],
+                 [["老闆找了零錢給傑克，", "可是他忘了價錢！"], ["The stall keeper gave Jack his change, ", "but Jack forgot the price!"]]],
+         ending: ["傑克買齊東西，開開心心地走路回家了！", "Jack bought everything and walked home happily!"] },
+    4: { intro: { zh: ["龜兔賽跑那天，兔子衝得太快，", "把小徑上的路標都踩亂了。", "烏龜走得慢，", "反而看出了路標的規律！"],
+                  en: ["On race day, the hare ran so fast ", "that he knocked all the path signs out of order. ", "The tortoise went slowly, ", "so she spotted the pattern!"] },
+         beats: [[["第一排路標，", "每次都加一樣多。"], ["On the first signs, ", "the same amount is added each time."]],
+                 [["麵包屑也排成規律，", "跟著走就不會迷路。"], ["The breadcrumbs make a pattern too. ", "Follow it and you won’t get lost."]],
+                 [["路邊的石頭有圓有方，", "最後缺了一塊！"], ["The stones by the path are round and square, ", "and one is missing!"]],
+                 [["最後一段路標，", "請你說出它的規律。"], ["On the last signs, ", "can you tell the rule?"]]],
+         ending: ["小徑修好了，烏龜和兔子都順利跑到終點！", "The path is fixed, and the tortoise and the hare both reach the finish!"] },
+    5: { intro: { zh: ["森林深處有一間糖果屋，", "屋主婆婆今天請朋友來喝茶。", "點心要公平地分，", "誰都不能多拿！"],
+                  en: ["Deep in the forest is a candy cottage. ", "Today the old lady who lives there has invited friends for tea. ", "The treats must be shared fairly, ", "and no one may take more!"] },
+         beats: [[["4 個朋友到了，", "盤子裡有 12 塊餅乾。"], ["4 friends have arrived, ", "and there are 12 biscuits on the plate."]],
+                 [["婆婆端出一個大派，", "切成一樣大的 4 塊。"], ["She brings out a big pie ", "cut into 4 equal pieces."]],
+                 [["大家來畫圖比賽，", "誰畫出了真正的一半？"], ["Time for a drawing game. ", "Who drew a true half?"]],
+                 [["朋友們都吃飽了，", "婆婆在想原來有幾塊。"], ["Everyone has eaten. ", "She wonders how many there were at first."]]],
+         ending: ["大家都分得一樣多，喝茶時間好開心！", "Everyone got the same, and tea time was lovely!"] },
+    6: { intro: { zh: ["池塘邊住著一隻小鴨，", "牠總覺得自己跟大家不一樣。", "小豆說：量一量就知道，", "大家本來就有高有矮、有大有小！"],
+                  en: ["A little duckling lives by the pond. ", "It always feels different from everyone else. ", "Pip says: let’s measure, ", "and you’ll see everyone is tall or short, big or small!"] },
+         beats: [[["小鴨在池邊撿到三根羽毛，", "哪一根最長？"], ["The duckling found three feathers by the pond. ", "Which is longest?"]],
+                 [["小鴨抬頭看豆莖和小樹，", "用葉子來量高。"], ["The duckling looks up at the beanstalk and a little tree, ", "and measures them in leaves."]],
+                 [["朋友們拿容器裝水，", "比比誰裝得最多。"], ["Friends bring things to hold water. ", "Which holds the most?"]],
+                 [["小鴨的新水瓶，", "倒了 2 杯才半滿。"], ["The duckling’s new bottle ", "is only half full after 2 cups."]]],
+         ending: ["小鴨長大了，原來牠是一隻漂亮的天鵝！", "The duckling grew up into a beautiful swan!"] },
+    7: { intro: { zh: ["夜裡，小精靈們在麵包房幫老爺爺烤麵包。", "麵包一定要準時出爐，", "天亮前才能送到大家家裡。", "小豆請你幫忙看時鐘！"],
+                  en: ["At night, little elves help the old baker in his bakery. ", "The bread must come out on time ", "to reach every home before sunrise. ", "Pip needs you to read the clock!"] },
+         beats: [[["麵包放進烤箱了，", "看看牆上的大鐘。"], ["The bread is in the oven. ", "Look at the big clock."]],
+                 [["兔子跑去送麵包，", "他去了多久呢？"], ["The hare ran off to deliver bread. ", "How long was he gone?"]],
+                 [["廚房還有一個數位鐘，", "它換了一種說法。"], ["There’s a digital clock in the kitchen too. ", "It says the time another way."]],
+                 [["最後一爐麵包，", "再一刻鐘就好了。"], ["The last batch of bread ", "will be ready in a quarter of an hour."]]],
+         ending: ["麵包準時出爐，整個山谷都聞到香味了！", "The bread came out on time, and the whole valley smells delicious!"] },
+    8: { intro: { zh: ["四位動物樂師來到山谷，", "想知道大家最喜歡哪一種表演。", "他們挨家挨戶問了一遍，", "請你幫忙讀圖！"],
+                  en: ["Four animal musicians have come to the valley. ", "They want to know which act everyone likes best. ", "They asked at every door, ", "and now they need you to read the chart!"] },
+         beats: [[["樂師把票數畫成圖，", "一個音符就是一票。"], ["The musicians drew the votes as a chart. ", "Each note is one vote."]],
+                 [["唱歌的公雞和跳舞的貓在比，", "到底差幾票？"], ["The singing rooster and the dancing cat are comparing. ", "What’s the difference?"]],
+                 [["小朋友也做了莓果調查，", "畫成了長條圖。"], ["The children did a berry survey too, ", "and drew a bar graph."]],
+                 [["晚到的 4 個朋友，", "都說喜歡跳舞！"], ["4 friends arrived late, ", "and they all love dancing!"]]],
+         ending: ["樂隊決定今晚就來一場跳舞大表演！", "The band will put on a big dance show tonight!"] },
+    9: { intro: { zh: ["傑克的魔豆又長高了，", "每一層藤蔓都結出一樣多的豆莢。", "一個一個數好慢，", "小豆教你更快的方法！"],
+                  en: ["Jack’s magic beanstalk has grown again, ", "with the same number of pods on every row. ", "Counting one by one is slow, ", "so Pip will show you a faster way!"] },
+         beats: [[["先數最下面這 4 層，", "每層一樣多。"], ["First count the 4 bottom rows. ", "Each row has the same."]],
+                 [["龜兔又要比賽了，", "跑道上插滿了旗子。"], ["The tortoise and the hare are racing again, ", "and the track is full of flags."]],
+                 [["傑克把豆莢寫成乘法，", "你會算嗎？"], ["Jack wrote the pods as a times sum. ", "Can you work it out?"]],
+                 [["傑克摘了 20 個豆莢，", "他摘了幾層呢？"], ["Jack picked 20 pods. ", "How many rows did he pick?"]]],
+         ending: ["傑克學會了乘法，數豆莢快多了！", "Jack learned to multiply, and counting pods is much faster now!"] },
+    10: { intro: { zh: ["秋天到了，森林動物在長桌上辦豐收宴。", "每一盤食物都要平分，", "分不完的就留給晚到的客人。"],
+                   en: ["It’s autumn, and the forest animals hold a harvest feast at the long table. ", "Every plate must be shared fairly, ", "and leftovers are saved for late guests."] },
+          beats: [[["第一盤是 20 個蘋果，", "4 位朋友先坐下來。"], ["The first plate has 20 apples, ", "and 4 friends sit down."]],
+                  [["麵包出爐了，", "這次有 5 個人要分。"], ["The bread is ready. ", "This time 5 people share."]],
+                  [["糖果屋婆婆帶來一罐糖，", "要分給 3 個小朋友。"], ["The candy cottage lady brought a jar of sweets ", "for 3 children."]],
+                  [["宴會結束了，", "小老鼠在算原來有幾個蘋果。"], ["The feast is over. ", "A little mouse wonders how many apples there were."]]],
+          ending: ["大家吃得飽飽的，豐收宴圓滿成功！", "Everyone is full, and the harvest feast was a great success!"] },
+    11: { intro: { zh: ["風把漢賽爾和葛麗特的麵包屑吹亂了，", "他們找不到路！", "小豆畫了一張方格地圖，", "帶大家一格一格走。"],
+                   en: ["The wind blew Hansel and Gretel’s breadcrumbs away, ", "and they can’t find the way! ", "Pip drew a grid map ", "to guide everyone one square at a time."] },
+          beats: [[["先找到地圖上的小豆，", "看看旁邊有什麼。"], ["First find Pip on the map, ", "and see what is next to Pip."]],
+                  [["籃子裡的麵包屑掉了，", "沿著路往上找。"], ["Breadcrumbs fell out of the basket. ", "Look up the path."]],
+                  [["葛麗特留下了箭號記號，", "照著走看看。"], ["Gretel left arrows as a clue. ", "Follow them."]],
+                  [["漢賽爾在大樹下等大家，", "小豆要去找他。"], ["Hansel is waiting under the tree. ", "Pip wants to reach him."]]],
+          ending: ["大家都找到路，平平安安到家了！", "Everyone found the way home safely!"] },
+    12: { intro: { zh: ["山谷最高處住著一隻友善的龍，", "牠把金幣分成大箱、中袋和小金幣。", "龍想清點寶藏，", "請你幫忙！"],
+                   en: ["A friendly dragon lives at the top of the valley. ", "It keeps its coins in chests, bags and single coins. ", "The dragon wants to count its treasure, ", "and needs your help!"] },
+          beats: [[["龍打開了第一堆寶藏，", "大箱、中袋、小金幣都有。"], ["The dragon opens the first pile: ", "chests, bags and coins."]],
+                  [["龍想知道，", "寶藏大約是幾個十。"], ["The dragon wants to know ", "roughly how many tens it has."]],
+                  [["龍也去圖書館數書，", "書也是一百一百地放。"], ["The dragon counts library books too. ", "They’re stacked in hundreds."]],
+                  [["最後一堆寶藏裡，", "一個中袋也沒有！"], ["In the last pile, ", "there are no bags at all!"]]],
+          ending: ["寶藏清點完成，龍請大家一起來慶祝！", "The treasure is counted, and the dragon invites everyone to celebrate!"] }
+  };
+
   /* ——— 中文語音：數字轉國字（2 個 → 兩個；200 → 兩百） ——— */
   const D = "零一二三四五六七八九";
   const MEASURE = /^\s*(個|點|塊|層|面|片|杯|次|顆|根|捆|盤|格|人|票|本|枚|種|段|圈|小時|位|條|張|隻|分鐘)/;
@@ -536,6 +619,9 @@
       const winTone = (i) => i === 1 ? "calm" : "excited";
       const pipId = "e" + ep + "pip";
       reg(pipId, E.pip.zh, E.pip.en, (i) => i === 0 ? "calm" : "excited");
+      const ST = STORY[k];
+      const introId = "e" + ep + "intro";
+      reg(introId, ST.intro.zh, ST.intro.en, (i, n) => i === n - 1 ? "excited" : "calm");
       const qs = E.qs.map((q, qi) => {
         const id = "e" + ep + "q" + (qi + 1);
         const last = qi === E.qs.length - 1;
@@ -549,17 +635,22 @@
           errs[v] = { line: eid, zh: z, en: e };
         });
         reg(id + "h", q.hint.zh, q.hint.en, "hint");
-        const wz = ["答對了！", q.win[0], last ? "第 " + ep + " 集完成，3 顆星都拿到了！" : STAR_ZH[qi]];
-        const we = ["You did it! ", q.win[1] + " ", last ? "Episode " + ep + " complete. You have all 3 stars!" : STAR_EN[qi]];
+        const wz = ["答對了！", q.win[0], last ? ST.ending[0] + "第 " + ep + " 集完成，3 顆星都拿到了！" : STAR_ZH[qi]];
+        const we = ["You did it! ", q.win[1] + " ", last ? ST.ending[1] + " Episode " + ep + " complete. You have all 3 stars!" : STAR_EN[qi]];
+        const beat = ST.beats[qi], beatId = id + "b";
+        reg(beatId, beat[0], beat[1], (i, n) => i === n - 1 ? "excited" : "calm");
         reg(id + "w", wz, we, winTone);
         return {
           kicker: "第 " + ep + " 集 · " + q.type[0] + " · " + q.type[1],
           line: id, zh, en, vis: q.vis, choices: q.choices, labels: q.labels, answer: q.answer, errs,
           hint: { line: id + "h", zh: q.hint.zh, en: q.hint.en },
-          win: { line: id + "w", zh: wz, en: we, star: !last }
+          win: { line: id + "w", zh: wz, en: we, star: !last },
+          beat: { line: beatId, zh: beat[0], en: beat[1] }
         };
       });
-      out[ep] = { ep, zh: E.zh, en: E.en, sub: E.sub, pip: { line: pipId, zh: E.pip.zh, en: E.pip.en }, qs };
+      out[ep] = { ep, zh: E.zh, en: E.en, sub: E.sub, pip: { line: pipId, zh: E.pip.zh, en: E.pip.en },
+                  intro: { line: introId, zh: ST.intro.zh, en: ST.intro.en },
+                  scene: { wide: "assets/scenes/ep" + ep + "-wide.jpg", portrait: "assets/scenes/ep" + ep + "-portrait.jpg" }, qs };
     });
     return out;
   }

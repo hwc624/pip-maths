@@ -292,12 +292,12 @@
       zh: [
         { text: "答對了！", tone: "excited" },
         { text: "五個十加三個一，一共是五十三。", tone: "calm" },
-        { text: "第一集完成，三顆星都拿到了！", tone: "excited" }
+        { text: "奶奶的果醬做好了，好香啊！第一集完成，三顆星都拿到了！", tone: "excited" }
       ],
       en: [
         { text: "You did it!", tone: "excited" },
         { text: "Five tens and three ones make fifty-three.", tone: "calm" },
-        { text: "Episode one complete. You have all three stars!", tone: "excited" }
+        { text: "Grandma’s jam is ready, and it smells wonderful! Episode one complete. You have all three stars!", tone: "excited" }
       ]
     },
     win: {
